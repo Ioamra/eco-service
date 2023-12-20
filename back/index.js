@@ -15,6 +15,8 @@ const corsOptions = {
     },
 };
 
+app.use(cors(corsOptions));
+
 app.use('/api/users', require('./routes/users.routes'));
 
 app.listen(5000, () => { console.log(`Backend started on port ${port}`) });
