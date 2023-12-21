@@ -1,7 +1,7 @@
 const bdd = require("../config/bdd.config.js");
 
-const getUserById = async (req, res) => {
-    const query = `SELECT * FROM users WHERE id_user = ${req.params.id}`;
+const getUtilisateurById = async (req, res) => {
+    const query = `SELECT * FROM utilisateur WHERE id_utilisateur = ${req.params.id}`;
     bdd.query(query, (err, data) => {
         if (err) {
         console.log(err);
@@ -11,8 +11,8 @@ const getUserById = async (req, res) => {
     });
 };
 
-const getUsers = async (req, res) => {
-    const query = `SELECT * FROM users`;
+const getUtilisateurs = async (req, res) => {
+    const query = `SELECT * FROM utilisateur`;
     bdd.query(query, (err, data) => {
         if (err) {
         console.log(err);
@@ -22,4 +22,4 @@ const getUsers = async (req, res) => {
     });
 };
 
-module.exports = { getUserById, getUsers };
+module.exports = { getUtilisateurById, getUtilisateurs };
