@@ -6,26 +6,65 @@ const generateToken = (user) => {
     return jwt.sign(user, secretKey, { expiresIn: '1h' });
 };
 
-const authenticateToken = (req, res, next) => {
+const verifToken = (req, res, next) => {
     const token = req.headers.authorization;
 
     if (!token) {
-        return res.sendStatus(401); // Unauthorized
+        return res.status(401).json({ "status": "error", "errorCode": 401, "message": "Acces non autorisé"});
     }
 
     jwt.verify(token, secretKey, (err, user) => {
         if (err) {
             if (err.name === 'TokenExpiredError') {
-                // Le token a expiré, peut-être envisager un renouvellement
-                // ou un autre mécanisme selon vos besoins
-                return res.status(403).json({ error: 'Token expired' });
+                return res.status(403).json({ "status": "error", "errorCode": 403, "message": "Token expiré" });
             }
-            return res.sendStatus(403); // Forbidden pour d'autres erreurs
+            return res.status(403).json({ "status": "error", "errorCode": 403, "message": "Acces non autorisé"});
         }
-        req.user = user;
+        next();
+    });
+};
+
+const verifMyAccToken = (req, res, next) => {
+    const token = req.headers.authorization;
+
+    if (!token) {
+        return res.status(401).json({ "status": "error", "errorCode": 401, "message": "Acces non autorisé"});
+    }
+
+    jwt.verify(token, secretKey, (err, user) => {
+        if (err) {
+            if (err.name === 'TokenExpiredError') {
+                return res.status(403).json({ "status": "error", "errorCode": 403, "message": "Token expiré" });
+            }
+            return res.status(403).json({ "status": "error", "errorCode": 403, "message": "Acces non autorisé"});
+        }
+        if (req.params.id != user.id_utilisateur) {
+            return res.status(403).json({ "status": "error", "errorCode": 403, "message": "Acces non autorisé"})
+        }
+        next();
+    });
+};
+
+const verifAdminToken = (req, res, next) => {
+    const token = req.headers.authorization;
+
+    if (!token) {
+        return res.status(401).json({ "status": "error", "errorCode": 401, "message": "Acces non autorisé"});
+    }
+
+    jwt.verify(token, secretKey, (err, user) => {
+        if (err) {
+            if (err.name === 'TokenExpiredError') {
+                return res.status(403).json({ "status": "error", "errorCode": 403, "message": "Token expiré" });
+            }
+            return res.status(403).json({ "status": "error", "errorCode": 403, "message": "Acces non autorisé"});
+        }
+        if (user.est_admin != 1) {
+            return res.status(403).json({ "status": "error", "errorCode": 403, "message": "Acces non autorisé" })
+        }
         next();
     });
 };
 
 
-module.exports = { generateToken, authenticateToken };
+module.exports = { generateToken, verifToken, verifMyAccToken, verifAdminToken };

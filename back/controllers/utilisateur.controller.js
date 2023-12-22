@@ -38,7 +38,7 @@ const connexion = async (req, res) => {
             };
             return res.status(200).json({ "status": "success", "data": { "token" : generateToken(user)}});
         } else {
-            return res.status(401).json({ "status": "error", "message": "Identifiant ou mot de passe incorect"})
+            return res.status(401).json({ "status": "error", "errorCode": 401, "message": "Identifiant ou mot de passe invalide"})
         }
     });
 }

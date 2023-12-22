@@ -4,12 +4,12 @@ const {
     getUtilisateurs,
     connexion
 } = require('../controllers/utilisateur.controller');
-const { authenticateToken } = require('../config/auth.config');
+const { verifToken, verifMyAccToken, verifAdminToken } = require('../config/auth.config');
 
 const router = express.Router();
 
-router.get('/:id', authenticateToken, getUtilisateurById);
-router.get('/', authenticateToken, getUtilisateurs);
+router.get('/:id', verifMyAccToken, getUtilisateurById);
+router.get('/', verifAdminToken, getUtilisateurs);
 router.post('/connexion', connexion);
 
 module.exports = router;
