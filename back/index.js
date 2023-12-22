@@ -1,5 +1,5 @@
 const express = require('express');
-const port = 5000;
+const port = 5001;
 const cors = require('cors');
 const app = express();
 const createWebSocketServer = require('./config/websocket.config')
@@ -30,4 +30,4 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/utilisateur', require('./routes/utilisateur.routes'));
 
-app.listen(5000, () => { console.log(`Backend started on port ${port}`) });
+app.listen(5001, () => { console.log(`Backend started on port ${port}`) });

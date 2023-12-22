@@ -4,11 +4,12 @@ const {
     getUtilisateurs,
     connexion
 } = require('../controllers/utilisateur.controller');
+const { authenticateToken } = require('../config/auth.config');
 
 const router = express.Router();
 
-router.get('/:id', getUtilisateurById);
-router.get('/', getUtilisateurs);
+router.get('/:id', authenticateToken, getUtilisateurById);
+router.get('/', authenticateToken, getUtilisateurs);
 router.post('/connexion', connexion);
 
 module.exports = router;
