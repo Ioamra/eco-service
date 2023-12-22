@@ -30,4 +30,4 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/utilisateur', require('./routes/utilisateur.routes'));
 
-app.listen(5001, () => { console.log(`Backend started on port ${port}`) });
+app.listen(port, () => { console.log(`Backend started on port ${port}`) });
