@@ -1,4 +1,4 @@
-const jwt= require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const secretKey = 'hhp6x{[Ie,$U-1W65Xz6p&IZT}zR{3';
 

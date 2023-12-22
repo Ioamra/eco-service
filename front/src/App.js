@@ -3,7 +3,15 @@ import './App.css';
 
 function App() {
   // EXEMPLE DE GET
-  fetch("http://localhost:5000/api/utilisateur/1")
+  fetch("http://localhost:5000/api/utilisateur/1",
+  {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91dGlsaXNhdGV1ciI6MSwiZXN0X2FkbWluIjoxLCJpYXQiOjE3MDMyNDIwMTQsImV4cCI6MTcwMzI0NTYxNH0.DvivQFl2_h2jUE10C7ZJPJeTLobRH-_0gtTaHFkQRCQ"
+    }
+  }
+  )
         .then(res => res.text())
         .then(data => {
             data = JSON.parse(data);
