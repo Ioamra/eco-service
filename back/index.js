@@ -2,6 +2,7 @@ const express = require('express');
 const port = 5000;
 const cors = require('cors');
 const app = express();
+import createWebSocketServer from "./config/websocket.config";
 
 const allowedOrigins = ['http://localhost:3000'];
 
@@ -15,7 +16,16 @@ const corsOptions = {
     },
 };
 
+
+
 app.use(cors(corsOptions));
+
+const wss = createWebSocketServer(app);
+
+app.use((req, res, next) => {
+    req.wss = wss;
+    next();
+});
 
 
 app.use(express.json());
