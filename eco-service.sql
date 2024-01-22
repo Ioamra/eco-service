@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 20 déc. 2023 à 17:05
+-- Généré le : lun. 22 jan. 2024 à 13:27
 -- Version du serveur : 8.2.0
 -- Version de PHP : 8.2.13
 
@@ -74,22 +74,6 @@ CREATE TABLE IF NOT EXISTS `commande` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `commande_date_satut_association`
---
-
-DROP TABLE IF EXISTS `commande_date_satut_association`;
-CREATE TABLE IF NOT EXISTS `commande_date_satut_association` (
-  `id_commande` int NOT NULL,
-  `id_statut` int NOT NULL,
-  `date_statut` datetime NOT NULL,
-  PRIMARY KEY (`id_commande`,`id_statut`,`date_statut`),
-  KEY `id_statut` (`id_statut`),
-  KEY `date_statut` (`date_statut`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `commande_produit_association`
 --
 
@@ -105,13 +89,16 @@ CREATE TABLE IF NOT EXISTS `commande_produit_association` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `date_statut`
+-- Structure de la table `commande_satut_association`
 --
 
-DROP TABLE IF EXISTS `date_statut`;
-CREATE TABLE IF NOT EXISTS `date_statut` (
+DROP TABLE IF EXISTS `commande_satut_association`;
+CREATE TABLE IF NOT EXISTS `commande_satut_association` (
+  `id_commande` int NOT NULL,
+  `id_statut` int NOT NULL,
   `date_statut` datetime NOT NULL,
-  PRIMARY KEY (`date_statut`)
+  PRIMARY KEY (`id_commande`,`id_statut`),
+  KEY `id_statut` (`id_statut`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
