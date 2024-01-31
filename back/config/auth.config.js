@@ -24,7 +24,7 @@ const verifToken = (req, res, next) => {
     });
 };
 
-const verifMyAccToken = (req, res, next) => {
+const verifMyAccTokenForGet = (req, res, next) => {
     const token = req.headers.authorization;
 
     if (!token) {
@@ -67,4 +67,4 @@ const verifAdminToken = (req, res, next) => {
 };
 
 
-module.exports = { generateToken, verifToken, verifMyAccToken, verifAdminToken };
+module.exports = { generateToken, verifToken, verifMyAccTokenForGet, verifAdminToken };
