@@ -4,7 +4,7 @@ const { getDateActu } = require('../functions/getDateActu.js');
 
 const getUtilisateurById = async (req, res) => {
     try {
-        const query = `SELECT * FROM utilisateur WHERE id_utilisateur = ${req.params.id}`;
+        const query = `SELECT * FROM utilisateur WHERE id_utilisateur = ${req.params.id};`;
         bdd.query(query, (err, data) => {
             if (err) {
                 throw err;
@@ -19,7 +19,7 @@ const getUtilisateurById = async (req, res) => {
 
 const getUtilisateurs = async (req, res) => {
     try {
-        const query = `SELECT id_utilisateur, mail, prenom, nom, pays, ville, code_postal, complement_adresse, est_admin, date_creation, etat FROM utilisateur`;
+        const query = `SELECT id_utilisateur, mail, prenom, nom, pays, ville, code_postal, complement_adresse, est_admin, date_creation, etat FROM utilisateur;`;
         bdd.query(query, (err, data) => {
             if (err) {
                 throw err;
@@ -35,7 +35,7 @@ const getUtilisateurs = async (req, res) => {
 const connexion = async (req, res) => {
     try {
         const { mail, mot_de_passe } = req.body;
-        const query = `SELECT COUNT(*) as exist, id_utilisateur, est_admin FROM utilisateur WHERE mail = '${mail}' AND mot_de_passe = '${mot_de_passe}'`;
+        const query = `SELECT COUNT(*) as exist, id_utilisateur, est_admin FROM utilisateur WHERE mail = '${mail}' AND mot_de_passe = '${mot_de_passe}';`;
         bdd.query(query, (err, data) => {
             if (err) {
                 throw err;
@@ -60,12 +60,19 @@ const inscription = async (req, res) => {
     try {
         const { mail, prenom, nom, mot_de_passe, pays, ville, code_postal, complement_adresse } = req.body;
         const query = `INSERT INTO utilisateur (mail, prenom, nom, mot_de_passe, pays, ville, code_postal, complement_adresse, est_admin, date_creation, etat) 
-            VALUES ('${mail}', '${prenom}', '${nom}', '${mot_de_passe}', '${pays}', '${ville}', '${code_postal}', '${complement_adresse}', 0, ${getDateActu()}, 1 )`;
+            VALUES ('${mail}', '${prenom}', '${nom}', '${mot_de_passe}', '${pays}', '${ville}', '${code_postal}', '${complement_adresse}', 0, '${getDateActu()}', 1 )
+            RETURNING id_utilisateur;`;
+            
+        console.log(query);
         
         bdd.query(query, (err, data) => {
             if (err) {
                 throw err;
             } else {
+                const user = {
+                    id_utilisateur: data[0].id_utilisateur,
+                    est_admin: 0
+                };
                 return res.status(200).json({ "status": "success", "data": { "token": generateToken(user) } });
             }
         })
