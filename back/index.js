@@ -3,6 +3,7 @@ const port = 5000;
 const cors = require('cors');
 const app = express();
 const createWebSocketServer = require('./config/websocket.config')
+const path = require('path');
 
 const allowedOrigins = ['http://localhost:3000'];
 
@@ -28,6 +29,11 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use("/images/categorie", express.static(path.join(__dirname, "upload/categorie")));
+app.use("/images/produit", express.static(path.join(__dirname, "upload/produit")));
+
 app.use('/api/utilisateur', require('./routes/utilisateur.routes'));
+app.use('/api/produit', require('./routes/produit.routes'));
+app.use('/api/categorie', require('./routes/categorie.routes'));
 
 app.listen(port, () => { console.log(`Backend started on port ${port}`) });
