@@ -59,21 +59,35 @@ const connexion = async (req, res) => {
 const inscription = async (req, res) => {
     try {
         const { mail, prenom, nom, mot_de_passe, pays, ville, code_postal, complement_adresse } = req.body;
-        const query = `INSERT INTO utilisateur (mail, prenom, nom, mot_de_passe, pays, ville, code_postal, complement_adresse, est_admin, date_creation, etat) 
-            VALUES ('${mail}', '${prenom}', '${nom}', '${mot_de_passe}', '${pays}', '${ville}', '${code_postal}', '${complement_adresse}', 0, '${getDateActu()}', 1 )
-            RETURNING id_utilisateur;`;
-            
-        console.log(query);
-        
-        bdd.query(query, (err, data) => {
+        bdd.query(`SELECT COUNT(mail) AS mail_exist FROM utilisateur WHERE mail = '${mail}'`, (err, data) => {
             if (err) {
                 throw err;
             } else {
-                const user = {
-                    id_utilisateur: data[0].id_utilisateur,
-                    est_admin: 0
-                };
-                return res.status(200).json({ "status": "success", "data": { "token": generateToken(user) } });
+                if (data[0].mail_exist) {
+                    return res.status(409).json({ "status": "error", "errorCode": 409, "message": "Cette adresse mail est déjà utilisé." });
+                }
+            }
+        });
+
+        const query = `INSERT INTO utilisateur (mail, prenom, nom, mot_de_passe, pays, ville, code_postal, complement_adresse, est_admin, date_creation, etat) 
+            VALUES ('${mail}', '${prenom}', '${nom}', '${mot_de_passe}', '${pays}', '${ville}', '${code_postal}', '${complement_adresse}', 0, '${getDateActu()}', 1 );`;
+
+        bdd.query(query, (err, data) => {
+            console.log(data);
+            if (err) {
+                throw err;
+            } else {
+                bdd.query("SELECT LAST_INSERT_ID() AS id_utilisateur;", (err, data) => {
+                    if (err) {
+                        throw err;
+                    } else {
+                        const user = {
+                            id_utilisateur: data[0].id_utilisateur,
+                            est_admin: 0
+                        };
+                        return res.status(200).json({ "status": "success", "data": { "token": generateToken(user) } });
+                    }
+                })
             }
         })
     } catch (error) {
