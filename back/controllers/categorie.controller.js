@@ -40,7 +40,33 @@ const add = async (req, res) => {
 }
 
 const remove = async (req, res) => {
+    // try {
+    //     // ! MODIF LA BDD POUR DELETE EN CASCADE
+    //     const { id_categorie } = req.params.id;
+    //     bdd.query(`SELECT * FROM categorie WHERE id_categorie = ?;`, [id_categorie], (err, data) => {
+    //         if (err) {
+    //             throw err;
+    //         }
+    //         const nom = data[0].
+    //     });
+    //     bdd.query(`DELETE FROM categorie WHERE id_categorie = ?;`, [id_categorie], (err, data) => {
+    //         if (err) {
+    //             throw err;
+    //         }
 
+    //         return res.status(200).json({ "status": "success", "data": data[0]});
+    //     });
+    // } catch (error) {
+    //     console.log(error);
+    //     return res.json(error);
+    // }
+
+
+
+    
+    // var fs = require('fs');
+    // var filePath = 'http://localhost:5000/images/categorie/test.jpg'; 
+    // fs.unlinkSync(filePath);
 }
 
 module.exports = { getAll, add, remove };
