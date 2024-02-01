@@ -2,7 +2,7 @@ const bdd = require('../config/bdd.config.js');
 const { generateToken } = require('../config/auth.config');
 const { getDateActu } = require('../functions/getDateActu.js');
 
-const getUtilisateurById = async (req, res) => {
+const getById = async (req, res) => {
     try {
         const query = `SELECT * FROM utilisateur WHERE id_utilisateur = ?;`;
         bdd.query(query, [req.params.id], (err, data) => {
@@ -17,7 +17,7 @@ const getUtilisateurById = async (req, res) => {
     }
 };
 
-const getUtilisateurs = async (req, res) => {
+const getAll = async (req, res) => {
     try {
         const query = `SELECT id_utilisateur, mail, prenom, nom, pays, ville, code_postal, complement_adresse, est_admin, date_creation, etat FROM utilisateur;`;
         bdd.query(query, (err, data) => {
@@ -207,4 +207,4 @@ const toggleBanUnban = async (req, res) => {
     }
 }
 
-module.exports = { getUtilisateurById, getUtilisateurs, connexion, inscription, update, toggleAdminRole, toggleBanUnban };
+module.exports = { getById, getAll, connexion, inscription, update, toggleAdminRole, toggleBanUnban };

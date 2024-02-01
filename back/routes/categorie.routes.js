@@ -1,13 +1,13 @@
 const express = require('express');
 const {
-    getAllCategorie, 
-    addCategorie
+    getAll, 
+    add
 } = require('../controllers/categorie.controller');
 const { verifAdminToken } = require('../config/auth.config');
 
 const router = express.Router();
 
-router.get('/', getAllCategorie);
-router.post('/add-categorie', verifAdminToken, addCategorie);
+router.get('/', getAll);
+router.post('/add-categorie', verifAdminToken, add);
 
 module.exports = router;

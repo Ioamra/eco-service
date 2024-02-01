@@ -1,7 +1,7 @@
 const express = require('express');
 const {
-    getUtilisateurById,
-    getUtilisateurs,
+    getById,
+    getAll,
     connexion,
     inscription,
     update,
@@ -12,8 +12,8 @@ const { verifToken, verifMyAccTokenForGet, verifAdminToken } = require('../confi
 
 const router = express.Router();
 
-router.get('/:id', verifMyAccTokenForGet, getUtilisateurById);
-router.get('/', verifAdminToken, getUtilisateurs);
+router.get('/:id', verifMyAccTokenForGet, getById);
+router.get('/', verifAdminToken, getAll);
 
 router.post('/connexion', connexion);
 router.post('/inscription', inscription);

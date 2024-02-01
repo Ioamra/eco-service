@@ -1,6 +1,6 @@
 const bdd = require('../config/bdd.config.js');
 
-const getAllCategorie = async (req, res) => {
+const getAll = async (req, res) => {
     try {
         const query = `SELECT * FROM categorie`;
         bdd.query(query, (err, data) => {
@@ -22,7 +22,7 @@ const getAllCategorie = async (req, res) => {
     }
 };
 
-const addCategorie = async (req, res) => {
+const add = async (req, res) => {
     try {
         // ! A VOIR COMMENT ENVOYER DES IMAGE AU BACK ET LES STOCKER
         const { nom, img } = req.body
@@ -39,4 +39,8 @@ const addCategorie = async (req, res) => {
     }
 }
 
-module.exports = { getAllCategorie, addCategorie };
+const remove = async (req, res) => {
+
+}
+
+module.exports = { getAll, add, remove };

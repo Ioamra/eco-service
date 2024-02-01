@@ -1,6 +1,6 @@
 const bdd = require('../config/bdd.config.js');
 
-const getProduitById = async (req, res) => {
+const getById = async (req, res) => {
     try {
         const query = `SELECT 
             JSON_OBJECT(
@@ -69,7 +69,7 @@ const getProduitById = async (req, res) => {
     }
 };
 
-const getAllProduitByCategorie = async (req, res) => {
+const getAllByCategorie = async (req, res) => {
     try {
         const query = `SELECT 
             JSON_ARRAYAGG(
@@ -122,6 +122,7 @@ const add = async (req, res) => {
 const update = async (req, res) => {
     try {
         const { id_produit, nom, description, quantite, prix, promo, date_fin_promo, id_categorie } = req.body;
+        // ! update img
         let query = `UPDATE produit SET `;
         let valueToUpdate = '';
         let values = [];
@@ -183,4 +184,4 @@ const exemple = async (req, res) => {
     }
 }
 
-module.exports = { getProduitById, getAllProduitByCategorie, add, update };
+module.exports = { getById, getAllByCategorie, add, update };
