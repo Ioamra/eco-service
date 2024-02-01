@@ -9,8 +9,8 @@ const { verifAdminToken } = require('../config/auth.config');
 const router = express.Router();
 
 router.get('/', getAll);
-router.get('/remove/:id', remove);
 
 router.post('/add', verifAdminToken, add);
+router.delete('/remove', verifAdminToken, remove);
 
 module.exports = router;

@@ -85,7 +85,14 @@ const getAllByCategorie = async (req, res) => {
                     'promo', produit.promo,
                     'date_fin_promo', produit.date_fin_promo,
                     'url_img', (SELECT CONCAT('images/produit/', image.id_image, '.', image.ext) FROM image WHERE image.id_produit = produit.id_produit LIMIT 1),
-                    'note_moyenne', (SELECT AVG(avis.note) FROM avis WHERE avis.id_produit = produit.id_produit)
+                    'note_moyenne', (SELECT AVG(avis.note) FROM avis WHERE avis.id_produit = produit.id_produit),
+                    'nb_produit_commande', (
+                        SELECT SUM(commande_produit_association.quantite_commander)
+                        FROM commande_produit_association
+                        LEFT JOIN commande_satut_association ON commande_produit_association.id_commande = commande_satut_association.id_commande
+                        LEFT JOIN statut ON commande_satut_association.id_statut = statut.id_statut
+                        WHERE id_produit = produit.id_produit AND statut.nom != ?
+                    )
                 )
             ) AS produit
         FROM produit
@@ -119,11 +126,18 @@ const getAll = async (req, res) => {
                     'promo', produit.promo,
                     'date_fin_promo', produit.date_fin_promo,
                     'url_img', (SELECT CONCAT('images/produit/', image.id_image, '.', image.ext) FROM image WHERE image.id_produit = produit.id_produit LIMIT 1),
-                    'note_moyenne', (SELECT AVG(avis.note) FROM avis WHERE avis.id_produit = produit.id_produit)
+                    'note_moyenne', (SELECT AVG(avis.note) FROM avis WHERE avis.id_produit = produit.id_produit),
+                    'nb_produit_commande', (
+                        SELECT SUM(commande_produit_association.quantite_commander)
+                        FROM commande_produit_association
+                        LEFT JOIN commande_satut_association ON commande_produit_association.id_commande = commande_satut_association.id_commande
+                        LEFT JOIN statut ON commande_satut_association.id_statut = statut.id_statut
+                        WHERE id_produit = produit.id_produit AND statut.nom != ?
+                    )
                 )
             ) AS produit
         FROM produit`;
-        bdd.query(query, (err, data) => {
+        bdd.query(query, ['Dans le panier'], (err, data) => {
             if (err) {
                 throw err;
             }

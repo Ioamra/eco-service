@@ -11,7 +11,7 @@ const { verifToken, verifAdminToken } = require('../config/auth.config');
 
 const router = express.Router();
 
-router.get('/', getAll)
+router.get('/', getAll);
 router.get('/:id', getById);
 router.get('/by-categorie/:id', getAllByCategorie);
 

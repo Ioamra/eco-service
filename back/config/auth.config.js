@@ -50,6 +50,9 @@ const verifMyAccTokenForGet = (req, res, next) => {
             }
             return res.status(403).json({ "status": "error", "errorCode": 403, "message": "Acces non autorisé"});
         }
+        if (user.est_admin == 1) {
+            next();
+        }
         if (req.params.id != user.id_utilisateur) {
             return res.status(403).json({ "status": "error", "errorCode": 403, "message": "Acces non autorisé"})
         }

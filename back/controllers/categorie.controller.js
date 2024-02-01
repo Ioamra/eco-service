@@ -41,19 +41,19 @@ const add = async (req, res) => {
 
 const remove = async (req, res) => {
     try {
-        // ! MODIF LA BDD POUR DELETE EN CASCADE
-        bdd.query(`SELECT ext_image FROM categorie WHERE id_categorie = ?;`, [req.params.id], (err, data) => {
+        const { id_categorie } = req.body;
+        bdd.query(`SELECT ext_image FROM categorie WHERE id_categorie = ?;`, [id_categorie], (err, data) => {
             if (err) {
                 throw err;
             }
             const ext_image = data[0].ext_image
-            bdd.query(`DELETE FROM categorie WHERE id_categorie = ?;`, [req.params.id], (err, data) => {
+            bdd.query(`DELETE FROM categorie WHERE id_categorie = ?;`, [id_categorie], (err, data) => {
                 if (err) {
                     throw err;
                 }
 
                 var fs = require('fs');
-                fs.unlinkSync(`upload/categorie/${req.params.id}.${ext_image}`);
+                fs.unlinkSync(`upload/categorie/${id_categorie}.${ext_image}`);
     
                 return res.status(200).json({ "status": "success", "message": "La catégorie a été supprimée avec succès"});
             });

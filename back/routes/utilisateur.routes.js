@@ -17,7 +17,7 @@ router.get('/', verifAdminToken, getAll);
 
 router.post('/connexion', connexion);
 router.post('/inscription', inscription);
-router.post('/update', update);
+router.post('/update', verifMyAccTokenForGet, update);
 router.post('/toggle-admin-role', verifAdminToken, toggleAdminRole);
 router.post('/toggle-ban-unban', verifAdminToken, toggleBanUnban);
 

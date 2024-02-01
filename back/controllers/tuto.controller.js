@@ -171,4 +171,29 @@ const add = async (req, res) => {
     }
 }
 
-module.exports = { getById, getAll, addAvis, add };
+const remove = async (req, res) => {
+    try {
+        const { id_tuto } = req.body;
+        bdd.query(`SELECT ext_image FROM tuto WHERE id_tuto = ?;`, [id_tuto], (err, data) => {
+            if (err) {
+                throw err;
+            }
+            const ext_image = data[0].ext_image
+            bdd.query(`DELETE FROM tuto WHERE id_tuto = ?;`, [id_tuto], (err, data) => {
+                if (err) {
+                    throw err;
+                }
+
+                var fs = require('fs');
+                fs.unlinkSync(`upload/tuto/${id_tuto}.${ext_image}`);
+    
+                return res.status(200).json({ "status": "success", "message": "La catégorie a été supprimée avec succès"});
+            });
+        });
+    } catch (error) {
+        console.log(error);
+        return res.json(error);
+    }
+}
+
+module.exports = { getById, getAll, addAvis, add, remove };
