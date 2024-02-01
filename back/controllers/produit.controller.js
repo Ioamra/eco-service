@@ -1,4 +1,6 @@
+const { getIdUtilisateurInToken } = require('../config/auth.config.js');
 const bdd = require('../config/bdd.config.js');
+const { getDateActu } = require('../functions/getDateActu.js');
 
 const getById = async (req, res) => {
     try {
@@ -10,7 +12,8 @@ const getById = async (req, res) => {
                 'quantite', produit.quantite,
                 'prix', produit.prix,
                 'promo', produit.promo,
-                'date_fin_promo', produit.date_fin_promo
+                'date_fin_promo', produit.date_fin_promo,
+                'note_moyenne', (SELECT AVG(avis.note) FROM avis WHERE avis.id_produit = produit.id_produit)
             ) AS produit,
             JSON_OBJECT(
                 'nom', categorie.nom,
@@ -81,7 +84,7 @@ const getAllByCategorie = async (req, res) => {
                     'prix', produit.prix,
                     'promo', produit.promo,
                     'date_fin_promo', produit.date_fin_promo,
-                    'url_img', (SELECT CONCAT('images/produit/', image.id_image, image.ext) FROM image WHERE image.id_produit = produit.id_produit LIMIT 1),
+                    'url_img', (SELECT CONCAT('images/produit/', image.id_image, '.', image.ext) FROM image WHERE image.id_produit = produit.id_produit LIMIT 1),
                     'note_moyenne', (SELECT AVG(avis.note) FROM avis WHERE avis.id_produit = produit.id_produit)
                 )
             ) AS produit
@@ -95,7 +98,39 @@ const getAllByCategorie = async (req, res) => {
             data = data.map(item => ({
                 produit: JSON.parse(item.produit)
             }))
-            return res.status(200).json({ "status": "success", "data": data[0]});
+            return res.status(200).json({ "status": "success", "data": data[0].produit});
+        });
+    } catch (error) {
+        console.log(error);
+        return res.json(error);
+    }
+}
+
+const getAll = async (req, res) => {
+    try {
+        const query = `SELECT 
+            JSON_ARRAYAGG(
+                JSON_OBJECT(
+                    'id_produit', produit.id_produit,
+                    'nom', produit.nom,
+                    'description', produit.description,
+                    'quantite', produit.quantite,
+                    'prix', produit.prix,
+                    'promo', produit.promo,
+                    'date_fin_promo', produit.date_fin_promo,
+                    'url_img', (SELECT CONCAT('images/produit/', image.id_image, '.', image.ext) FROM image WHERE image.id_produit = produit.id_produit LIMIT 1),
+                    'note_moyenne', (SELECT AVG(avis.note) FROM avis WHERE avis.id_produit = produit.id_produit)
+                )
+            ) AS produit
+        FROM produit`;
+        bdd.query(query, (err, data) => {
+            if (err) {
+                throw err;
+            }
+            data = data.map(item => ({
+                produit: JSON.parse(item.produit)
+            }))
+            return res.status(200).json({ "status": "success", "data": data[0].produit});
         });
     } catch (error) {
         console.log(error);
@@ -169,6 +204,23 @@ const update = async (req, res) => {
     }
 }
 
+const addAvis = async (req, res) => {
+    try {
+        const { description, note, id_produit } = req.body;
+        const query = `INSERT INTO avis (description, note, date_avis, id_utilisateur, id_produit) VALUES (?, ?, ?, ?, ?)`;
+        const id_utilisateur = await getIdUtilisateurInToken(req.headers.authorization);
+        bdd.query(query, [description, note, getDateActu(), id_utilisateur, id_produit], (err, data) => {
+            if (err) {
+                throw err;
+            }
+            return res.status(200).json({ "status": "success", "message": "L'avis a correctement été ajouté"});
+        });
+    } catch (error) {
+        console.log(error);
+        return res.json(error);
+    }
+}
+
 const exemple = async (req, res) => {
     try {
         const query = ``;
@@ -184,4 +236,4 @@ const exemple = async (req, res) => {
     }
 }
 
-module.exports = { getById, getAllByCategorie, add, update };
+module.exports = { getById, getAllByCategorie, getAll, add, update, addAvis };

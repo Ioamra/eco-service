@@ -6,6 +6,18 @@ const generateToken = (user) => {
     return jwt.sign(user, secretKey, { expiresIn: '1h' });
 };
 
+const getIdUtilisateurInToken = (token) => {
+    return new Promise((resolve, reject) => {
+        jwt.verify(token, secretKey, (err, user) => {
+            if (err) {
+                reject(null);
+            } else {
+                resolve(user.id_utilisateur);
+            }
+        });
+    });
+}
+
 const verifToken = (req, res, next) => {
     const token = req.headers.authorization;
 
@@ -66,5 +78,4 @@ const verifAdminToken = (req, res, next) => {
     });
 };
 
-
-module.exports = { generateToken, verifToken, verifMyAccTokenForGet, verifAdminToken };
+module.exports = { generateToken, getIdUtilisateurInToken, verifToken, verifMyAccTokenForGet, verifAdminToken };

@@ -1,3 +1,4 @@
+const { getIdUtilisateurInToken } = require('../config/auth.config.js');
 const bdd = require('../config/bdd.config.js');
 const { getDateActu } = require('../functions/getDateActu.js');
 
@@ -91,4 +92,83 @@ const getAll = async (req, res) => {
     }
 }
 
-module.exports = { getById, getAll };
+const addAvis = async (req, res) => {
+    try {
+        const { description, note, id_tuto } = req.body;
+        const query = `INSERT INTO avis (description, note, date_avis, id_utilisateur, id_tuto) VALUES (?, ?, ?, ?, ?)`;
+        const id_utilisateur = await getIdUtilisateurInToken(req.headers.authorization);
+        bdd.query(query, [description, note, getDateActu(), id_utilisateur, id_tuto], (err, data) => {
+            if (err) {
+                throw err;
+            }
+            return res.status(200).json({ "status": "success", "message": "L'avis a correctement été ajouté"});
+        });
+    } catch (error) {
+        console.log(error);
+        return res.json(error);
+    }
+}
+
+const add = async (req, res) => {
+    try {
+        // ! AJOUETER IMG
+        const { titre, description, ext_image, video, list_id_produit } = req.body;
+        const id_utilisateur = await getIdUtilisateurInToken(req.headers.authorization);
+        if (video != undefined) {
+            const query = `INSERT INTO tuto (titre, description, ext_image, video, date_tuto, id_utilisateur) VALUES (?, ?, ?, ?, ?, ?)`;
+            bdd.query(query, [titre, description, ext_image, video, getDateActu(), id_utilisateur], (err, data) => {
+                if (err) {
+                    throw err;
+                } else {
+                    bdd.query("SELECT LAST_INSERT_ID() AS id_tuto;", (err, data) => {
+                        if (err) {
+                            throw err;
+                        } else {
+                            const id_tuto = data[0].id_tuto;
+                            for (let i = 0; i < list_id_produit.length; i++) {
+                                bdd.query(`INSERT INTO tuto_produit_association (id_produit, id_tuto) VALUES (?, ?)`, [list_id_produit[i], id_tuto], (err, data) => {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                })
+                                if (i == list_id_produit.length) {
+                                    return res.status(200).json({ "status": "success", "data": data[0]});
+                                }
+                            }
+                        }
+                    })
+                }
+            });
+        } else {
+            const query = `INSERT INTO tuto (titre, description, ext_image, date_tuto, id_utilisateur) VALUES (?, ?, ?, ?, ?)`;
+            bdd.query(query, [titre, description, ext_image, getDateActu(), id_utilisateur], (err, data) => {
+                if (err) {
+                    throw err;
+                } else {
+                    bdd.query("SELECT LAST_INSERT_ID() AS id_tuto;", (err, data) => {
+                        if (err) {
+                            throw err;
+                        } else {
+                            const id_tuto = data[0].id_tuto;
+                            for (let i = 0; i < list_id_produit.length; i++) {
+                                bdd.query(`INSERT INTO tuto_produit_association (id_produit, id_tuto) VALUES (?, ?)`, [list_id_produit[i], id_tuto], (err, data) => {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                })
+                                if (i == list_id_produit.length) {
+                                    return res.status(200).json({ "status": "success", "data": data[0]});
+                                }
+                            }
+                        }
+                    })
+                }
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.json(error);
+    }
+}
+
+module.exports = { getById, getAll, addAvis, add };
