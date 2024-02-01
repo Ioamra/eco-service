@@ -4,12 +4,13 @@ const { getDateActu } = require('../functions/getDateActu.js');
 
 const getById = async (req, res) => {
     try {
-        const query = `SELECT * FROM utilisateur WHERE id_utilisateur = ?;`;
+        const query = `SELECT id_utilisateur, mail, prenom, nom, mot_de_passe, pays, ville, code_postal, complement_adresse, est_admin, date_creation, etat 
+            FROM utilisateur WHERE id_utilisateur = ?;`;
         bdd.query(query, [req.params.id], (err, data) => {
             if (err) {
                 throw err;
             }
-            return res.status(200).json({ "status": "success", "data": data});
+            return res.status(200).json({ "status": "success", "data": data[0]});
         });
     } catch (error) {
         console.log(error);

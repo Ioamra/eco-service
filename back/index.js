@@ -35,5 +35,6 @@ app.use("/images/produit", express.static(path.join(__dirname, "upload/produit")
 app.use('/api/utilisateur', require('./routes/utilisateur.routes'));
 app.use('/api/produit', require('./routes/produit.routes'));
 app.use('/api/categorie', require('./routes/categorie.routes'));
+app.use('/api/tuto', require('./routes/tuto.routes'));
 
 app.listen(port, () => { console.log(`Backend started on port ${port}`) });
