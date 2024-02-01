@@ -49,8 +49,8 @@ const getProduitById = async (req, res) => {
             ), '[]') AS tuto
         FROM produit 
         INNER JOIN categorie ON produit.id_categorie = categorie.id_categorie
-        WHERE produit.id_produit = ${req.params.id};`;
-        bdd.query(query, (err, data) => {
+        WHERE produit.id_produit = ?;`;
+        bdd.query(query, [req.params.id], (err, data) => {
             if (err) {
                 throw err;
             }
@@ -87,8 +87,8 @@ const getAllProduitByCategorie = async (req, res) => {
             ) AS produit
         FROM produit
         INNER JOIN categorie ON produit.id_categorie = categorie.id_categorie
-        WHERE categorie.id_categorie = ${req.params.id}`;
-        bdd.query(query, (err, data) => {
+        WHERE categorie.id_categorie = ?`;
+        bdd.query(query, [req.params.id], (err, data) => {
             if (err) {
                 throw err;
             }
@@ -103,7 +103,7 @@ const getAllProduitByCategorie = async (req, res) => {
     }
 }
 
-const addProduit = async (req, res) => {
+const add = async (req, res) => {
     try {
         const { nom, description, quantite, prix, images } = req.body;
         const query = ``;
@@ -112,6 +112,55 @@ const addProduit = async (req, res) => {
                 throw err;
             }
             return res.status(200).json({ "status": "success", "data": data[0]});
+        });
+    } catch (error) {
+        console.log(error);
+        return res.json(error);
+    }
+}
+
+const update = async (req, res) => {
+    try {
+        const { id_produit, nom, description, quantite, prix, promo, date_fin_promo, id_categorie } = req.body;
+        let query = `UPDATE produit SET `;
+        let valueToUpdate = '';
+        let values = [];
+        if (nom != undefined) {
+            valueToUpdate += `nom = ?, `;
+            values.push(nom);
+        }
+         if (description != undefined) {
+            valueToUpdate += `description = ?, `;
+            values.push(description);
+        }
+         if (quantite != undefined) {
+            valueToUpdate += `quantite = ?, `;
+            values.push(quantite);
+        }
+         if (prix != undefined) {
+            valueToUpdate += `prix = ?, `;
+            values.push(prix);
+        }
+         if (promo != undefined) {
+            valueToUpdate += `promo = ?, `;
+            values.push(promo);
+        }
+         if (date_fin_promo != undefined) {
+            valueToUpdate += `date_fin_promo = ?, `;
+            values.push(date_fin_promo);
+        }
+         if (id_categorie != undefined) {
+            valueToUpdate += `id_categorie = ?, `;
+            values.push(id_categorie);
+        }
+         valueToUpdate = valueToUpdate.slice(0, -2);
+        query += valueToUpdate + ` WHERE id_produit = ?;`;
+        values.push(id_produit);
+        bdd.query(query, values, (err, data) => {
+            if (err) {
+                throw err;
+            }
+            return res.status(200).json({ "status": "success", "response": "La mise à jour a correctement été éffectué"});
         });
     } catch (error) {
         console.log(error);
@@ -134,4 +183,4 @@ const exemple = async (req, res) => {
     }
 }
 
-module.exports = { getProduitById, getAllProduitByCategorie, addProduit };
+module.exports = { getProduitById, getAllProduitByCategorie, add, update };

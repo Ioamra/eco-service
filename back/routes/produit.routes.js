@@ -2,15 +2,17 @@ const express = require('express');
 const {
     getProduitById,
     getAllProduitByCategorie,
-    addProduit
+    add,
+    update
 } = require('../controllers/produit.controller');
-const { verifToken, verifMyAccToken, verifAdminToken } = require('../config/auth.config');
+const { verifToken, verifAdminToken } = require('../config/auth.config');
 
 const router = express.Router();
 
 router.get('/:id', getProduitById);
 router.get('/by-categorie/:id', getAllProduitByCategorie);
 
-router.post('add', addProduit);
+router.post('/add', verifAdminToken, add);
+router.post('/update', update);
 
 module.exports = router;
