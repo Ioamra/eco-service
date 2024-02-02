@@ -1,0 +1,39 @@
+.formLayout {
+  position: relative;
+}
+.formLayout input {
+  width: 350px;
+  max-width: 80vw;
+  height: 25px;
+  border-radius: 5px;
+  border: solid 2px #ededed;
+  margin: 25px auto;
+}
+.formLayout button {
+  background: #E99535;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 1000px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+.formLayout button:hover {
+  background: #000;
+  color: #fff;
+  transform-origin: center center;
+  transform: rotate(5deg);
+}
+
+.sing div {
+  height: 100%;
+}
+
+.logoLayout {
+  position: relative;
+}
+.logoLayout img {
+  width: 100px;
+  aspect-ratio: 1/1;
+}
+
+/*# sourceMappingURL=sing-in-up.css.map */
