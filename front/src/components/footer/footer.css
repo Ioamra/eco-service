@@ -1,0 +1,156 @@
+/* Import font-family */
+
+@import url('https://fonts.googleapis.com/css2?family=Headland+One&display=swap');
+
+/* CSS pour les écrans de taille écran */
+
+footer {
+    background-color: #A08A7D;
+    width: 100%;
+    height: 500px;
+    flex-shrink: 0;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.footer-plant {
+    position: absolute; 
+    bottom: 65%; 
+    left: 0; 
+    width: 405px; 
+    height: 372px; 
+    z-index: 1;
+}
+
+.footer-title-container {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 225px; 
+}
+
+.footer-title-Eco {
+    color: #FFF;
+    text-align: center;
+    font-family: 'HeadlandOne', sans-serif;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.footer-hr {
+    width: 1305px;
+    height: 1px;
+    background: #FFF;
+ 
+}
+
+.footer-social-media {
+    display: flex; 
+    justify-content: space-around; 
+    align-items: center;
+}
+
+.footer-instagram, .footer-facebook, .footer-twitter {
+    flex-shrink: 0; 
+    height: 69px;
+    margin: 25px;
+}
+
+.footer-facebook {
+    width: 66px; 
+}
+
+.footer-text-content {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin: 100px;
+}
+
+.footer-mentions, .footer-rights {
+    flex-shrink: 0;
+    color: #FFF;
+    text-align: center;
+    font-family: 'HeadlandOne', sans-serif;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.footer-mentions {
+    width: 235px; 
+}
+
+.footer-rights {
+    width: 487px; 
+}
+
+/* CSS pour les écrans de taille mobile */
+
+@media screen and (max-width: 768px) {
+
+    footer {
+        height: 250px;
+    }
+
+    .footer-mentions, .footer-rights {
+        font-size: 9px;
+        margin: 0 2px; 
+    }
+
+    .footer-title-Eco {
+        font-size: 12px; 
+    }
+
+    .footer-title-container{
+        height: 100px;
+    }
+
+    .footer-social-media {
+        display: flex; 
+        justify-content: space-around; 
+        align-items: center;
+    }
+
+    .footer-instagram, .footer-facebook, .footer-twitter {
+        flex-shrink: 0; 
+        height: 30px;
+        margin: 15px;
+    }
+
+    .footer-facebook {
+        width: 33px; 
+    }
+
+    .footer-hr {
+        width: auto; 
+        margin: 10px 10px; 
+    }
+
+    .footer-plant{
+        bottom: 78%;
+        margin: 0 2px;
+        width: 125px; 
+        height: 125px;
+    }
+    
+    .footer-text-content{
+        height: 40px; 
+        margin: 30px; 
+        padding: 0 10px; 
+    }
+
+    .footer-text-content .footer-mentions,
+    .footer-text-content .footer-rights {
+        text-align: left;
+        margin-left: -70px;
+        margin-right: -70px;
+        width: auto;
+        padding: 0 60px; 
+    }
+
+}
