@@ -1,9 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
+import LoginScreen from './pages/sing-in-up';
+import './index.css';
+
 
 function App() {
   // EXEMPLE DE GET
-  fetch("http://localhost:5000/api/utilisateur/1",
+  /*fetch("http://localhost:5000/api/utilisateur/1",
   {
     method: 'GET',
     headers: {
@@ -19,7 +21,7 @@ function App() {
         })
 
   // EXEMPLE DE POST
-  fetch("http://localhost:5000/api/utilisateur/connexion", 
+  fetch("http://localhost:5000/api/utilisateur/connexion",
   {
     method: 'POST',
     headers: {
@@ -36,27 +38,24 @@ function App() {
   })
   .catch(error => {
       console.error('Erreur lors de la requête POST:', error);
-  });
+  });*/
 
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>
+          <div style={styles.loginScreen} className="loginScreen">
+            <LoginScreen/>
+          </div>
+      </div>
   );
 }
+
+const styles = {
+    loginScreen: {
+
+        position: 'relative',
+    }
+};
+
 
 export default App;
