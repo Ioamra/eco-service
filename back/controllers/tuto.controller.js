@@ -72,7 +72,8 @@ const getAll = async (req, res) => {
                     'date_tuto', tuto.date_tuto,
                     'id_createur', utilisateur.id_utilisateur,
                     'nom_createur', utilisateur.nom,
-                    'prenom_createur', utilisateur.prenom
+                    'prenom_createur', utilisateur.prenom,
+                    'note_moyenne', (SELECT AVG(avis.note) FROM avis WHERE avis.id_tuto = tuto.id_tuto)
                 )
             ) AS tutos
         FROM tuto

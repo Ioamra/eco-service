@@ -235,6 +235,46 @@ const addAvis = async (req, res) => {
     }
 }
 
+const removeImage = async (req, res) => {
+    try {
+        const { id_image } = req.body;
+        bdd.query(`SELECT ext FROM image WHERE id_image = ?;`, [id_image], (err, data) => {
+            if (err) {
+                throw err;
+            }
+            const ext = data[0].ext;
+            bdd.query(`DELETE FROM image WHERE id_image = ?;`, [id_image], (err, data) => {
+                if (err) {
+                    throw err;
+                }
+                var fs = require('fs');
+                fs.unlinkSync(`upload/categorie/${id_image}.${ext}`);
+                return res.status(200).json({ "status": "success", "message": "L'image à été supprimé"});
+            });
+        });
+    } catch (error) {
+        console.log(error);
+        return res.json(error);
+    }
+}
+
+const addImage = async (req, res) => {
+    // ! VOIR COMMENT AJOUTER UNE IMG
+    try {
+        const { id_produit } = req.body;
+        const query = ``;
+        bdd.query(query, (err, data) => {
+            if (err) {
+                throw err;
+            }
+            return res.status(200).json({ "status": "success", "data": data[0]});
+        });
+    } catch (error) {
+        console.log(error);
+        return res.json(error);
+    }
+}
+
 const exemple = async (req, res) => {
     try {
         const query = ``;
@@ -250,4 +290,4 @@ const exemple = async (req, res) => {
     }
 }
 
-module.exports = { getById, getAllByCategorie, getAll, add, update, addAvis };
+module.exports = { getById, getAllByCategorie, getAll, add, update, addAvis, removeImage, addImage };
