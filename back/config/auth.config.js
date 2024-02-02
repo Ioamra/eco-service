@@ -36,7 +36,7 @@ const verifToken = (req, res, next) => {
     });
 };
 
-const verifMyAccTokenForGet = (req, res, next) => {
+const verifMyAccToken = (req, res, next) => {
     const token = req.headers.authorization;
 
     if (!token) {
@@ -53,7 +53,7 @@ const verifMyAccTokenForGet = (req, res, next) => {
         if (user.est_admin == 1) {
             next();
         }
-        if (req.params.id != user.id_utilisateur) {
+        if (req.params.id != user.id_utilisateur && req.body.id_utilisateur != user.id_utilisateur) {
             return res.status(403).json({ "status": "error", "errorCode": 403, "message": "Acces non autorisé"})
         }
         next();
@@ -81,4 +81,4 @@ const verifAdminToken = (req, res, next) => {
     });
 };
 
-module.exports = { generateToken, getIdUtilisateurInToken, verifToken, verifMyAccTokenForGet, verifAdminToken };
+module.exports = { generateToken, getIdUtilisateurInToken, verifToken, verifMyAccToken, verifAdminToken };
