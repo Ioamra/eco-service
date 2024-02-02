@@ -1,14 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import LoginScreen from './pages/sing-in-up';
+import './index.css';
+
 import Footer from './components/footer/footer'; 
 function App() {
   return (
+      <div>
+          <div style={styles.loginScreen} className="loginScreen">
+            <LoginScreen/>
+          </div>
+      </div>
+  );
     <div className="App">
       <Footer />
     </div>
 ); 
 
 }
+
 export default App;
 
   // EXEMPLE DE GET

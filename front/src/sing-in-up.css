@@ -1,0 +1,72 @@
+.formLayout {
+  position: relative;
+  margin-bottom: 25px;
+}
+.formLayout .formContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.formLayout .singSwitch {
+  font-size: 10px;
+  margin-top: 25px;
+  text-decoration: underline;
+  font-weight: bold;
+}
+.formLayout label {
+  text-align: left;
+}
+.formLayout label input {
+  width: 350px;
+  max-width: 80vw;
+  height: 25px;
+  border-radius: 5px;
+  border: solid 2px #ededed;
+  margin: 10px 0 25px 0;
+}
+.formLayout button {
+  background: #E99535;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 1000px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+.formLayout button:hover {
+  background: #000;
+  color: #fff;
+  transform-origin: center center;
+  transform: rotate(5deg);
+}
+
+.sing div {
+  height: 100%;
+}
+
+.logoLayout {
+  position: relative;
+}
+.logoLayout img {
+  width: 150px;
+  aspect-ratio: 1/1;
+}
+
+@media only screen and (max-width: 992px) {
+  .logoLayout {
+    display: none !important;
+  }
+  input, label {
+    width: 100% !important;
+  }
+  .formContainer {
+    justify-content: center;
+    margin: 0 auto;
+    width: 100%;
+  }
+  form {
+    width: 100% !important;
+  }
+}
+
+/*# sourceMappingURL=sing-in-up.css.map */

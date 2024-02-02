@@ -6,6 +6,7 @@ const bdd = mysql.createConnection({
     user: "root",
     password: "",
     database: "eco-service",
+    multipleStatements: true
 });
 
 module.exports = bdd;
