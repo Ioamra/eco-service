@@ -1,4 +1,5 @@
 import axios from 'axios';
+import CryptoJS from 'crypto-js';
 
 const apiService  = axios.create({
     baseURL: "http://localhost:5000/api",
@@ -10,12 +11,12 @@ const apiService  = axios.create({
 export const connexion = async (email, motDePasse) => {
     try {
         const response = await apiService.post('/utilisateur/connexion', {
-            email: email,
-            mot_de_passe: motDePasse
+            mail: email,
+            mot_de_passe: CryptoJS.SHA256(motDePasse).toString()
         })
-        console.log(response.data);
-        return response.data;
+        sessionStorage.setItem('token', response.data.data.token)
+        return 'ok';
     } catch (error) {
-        console.error(error)
+        return 'error';
     }
 }

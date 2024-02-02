@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import logoEcoService from '../assets/logoEcoService.png';
 import '../sing-in-up.css';
+import { connexion } from '../services/sign';
 
 const LoginScreen = () => {
     const [isLoginFormVisible, setLoginFormVisible] = useState(true);
@@ -9,9 +10,14 @@ const LoginScreen = () => {
         setLoginFormVisible(!isLoginFormVisible);
     };
 
-    const handleLogin = (userData) => {
-        // Logique de connexion ici
-        console.log('Utilisateur connecté:', userData);
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        const response =  await connexion(e.target.elements.email.value, e.target.elements.password.value);
+        if (response == 'ok') {
+            // ! GERER LA REDIRECTION QUAND LA CONNEXION A REUSSI
+        } else if (response == 'error' ) {
+            // ! GERER LE CAS OU LE MAIL OU MOT DE PASSE N'EST PAS BON
+        }
     };
 
     const handleRegister = (userData) => {
@@ -34,11 +40,11 @@ const LoginScreen = () => {
                                     {/* Formulaire de connexion avec des balises label */}
                                     <label>
                                         Email<br/>
-                                        <input type="text"/>
+                                        <input type="text" name="email"/>
                                     </label>
                                     <label>
                                         Mot de passe<br/>
-                                        <input type="password"/>
+                                        <input type="password" name="password"/>
                                     </label>
                                     <button type="submit">Se connecter</button>
                                 </form>

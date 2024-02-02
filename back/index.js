@@ -1,5 +1,5 @@
 const express = require('express');
-const port = 3343;
+const port = 5000;
 const cors = require('cors');
 const app = express();
 const createWebSocketServer = require('./config/websocket.config')

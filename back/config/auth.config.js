@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const secretKey = 'hhp6x{[Ie,$U-1W65Xz6p&IZT}zR{3';
 
 const generateToken = (user) => {
-    return jwt.sign(user, secretKey, { expiresIn: '1h' });
+    return jwt.sign(user, secretKey, { expiresIn: '3h' });
 };
 
 const getIdUtilisateurInToken = (token) => {
