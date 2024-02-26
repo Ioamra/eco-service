@@ -152,6 +152,46 @@ const getAll = async (req, res) => {
     }
 }
 
+const getBySearch = async (req, res) => {
+    try {
+        const query = `SELECT 
+            JSON_ARRAYAGG(
+                JSON_OBJECT(
+                    'id_produit', produit.id_produit,
+                    'nom', produit.nom,
+                    'description', produit.description,
+                    'quantite', produit.quantite,
+                    'prix', produit.prix,
+                    'promo', produit.promo,
+                    'date_fin_promo', produit.date_fin_promo,
+                    'url_img', (SELECT CONCAT('images/produit/', image.id_image, '.', image.ext) FROM image WHERE image.id_produit = produit.id_produit LIMIT 1),
+                    'note_moyenne', (SELECT AVG(avis.note) FROM avis WHERE avis.id_produit = produit.id_produit),
+                    'nb_produit_commande', (
+                        SELECT SUM(commande_produit_association.quantite_commander)
+                        FROM commande_produit_association
+                        LEFT JOIN commande_satut_association ON commande_produit_association.id_commande = commande_satut_association.id_commande
+                        LEFT JOIN statut ON commande_satut_association.id_statut = statut.id_statut
+                        WHERE id_produit = produit.id_produit AND statut.nom != ?
+                    )
+                )
+            ) AS produit
+        FROM produit
+        WHERE produit.nom LIKE ?`;
+        bdd.query(query, ['Dans le panier', '%' + req.params.search + '%'], (err, data) => {
+            if (err) {
+                throw err;
+            }
+            data = data.map(item => ({
+                produit: JSON.parse(item.produit)
+            }))
+            return res.status(200).json({ "status": "success", "data": data[0].produit});
+        });
+    } catch (error) {
+        console.log(error);
+        return res.json(error);
+    }
+}
+
 const add = async (req, res) => {
     try {
         const { nom, description, quantite, prix, images } = req.body;
@@ -290,4 +330,4 @@ const exemple = async (req, res) => {
     }
 }
 
-module.exports = { getById, getAllByCategorie, getAll, add, update, addAvis, removeImage, addImage };
+module.exports = { getById, getAllByCategorie, getBySearch, getAll, add, update, addAvis, removeImage, addImage };
