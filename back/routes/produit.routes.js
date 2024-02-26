@@ -19,11 +19,11 @@ router.get('/:id', getById);
 router.get('/by-categorie/:id', getAllByCategorie);
 router.get('/search/:search', getBySearch);
 
-router.post('/add', add);
-router.post('/update', update);
-router.post('/add-avis', addAvis);
-router.post('/add-image', addImage);
+router.post('/add', verifAdminToken, add);
+router.post('/update', verifAdminToken, update);
+router.post('/add-avis', verifToken, addAvis);
+router.post('/add-image', verifAdminToken, addImage);
 
-router.delete('/remove-image', removeImage);
+router.delete('/remove-image', verifAdminToken, removeImage);
 
 module.exports = router;
