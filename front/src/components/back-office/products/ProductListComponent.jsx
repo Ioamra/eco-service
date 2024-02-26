@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function ProductComponent() {
+function ProductListComponent() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/produits');
+                const response = await axios.get('http://localhost:5001/api/produit');
                 setProducts(response.data);
             } catch (error) {
                 console.error('Une erreur s\'est produite lors de la récupération des produits :', error);
@@ -17,6 +17,7 @@ function ProductComponent() {
         fetchProducts().then(r => r);
     }, []);
 
+    console.log("products : "+ products)
 
 
     return (
@@ -33,12 +34,12 @@ function ProductComponent() {
                 </tr>
                 </thead>
                 <tbody>
-                {products.map(product => (
+                {products.length > 0 && products.map(product => (
                     <tr key={product.id}>
                         <td>{product.id}</td>
-                        <td>{product.name}</td>
+                        <td>{product.nom}</td>
                         <td>{product.description}</td>
-                        <td>{product.price}</td>
+                        <td>{product.prix}</td>
                     </tr>
                 ))}
                 </tbody>
@@ -47,4 +48,4 @@ function ProductComponent() {
     );
 }
 
-export default ProductComponent;
+export default ProductListComponent;

@@ -22,7 +22,7 @@ const backOfficePage = () => {
                     </div>
                 </div>
         </Router>
-);
+    );
 };
 
 export default backOfficePage;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import logoEcoService from '../assets/logoEcoService.png';
-import '../sing-in-up.css';
+import './sing-in-up.css';
 import { connexion } from '../services/sign';
 
 const LoginScreen = () => {
