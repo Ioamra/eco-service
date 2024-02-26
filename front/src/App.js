@@ -6,8 +6,10 @@ import Footer from './components/footer/footer';
 function App() {
   return (
       <div>
+        <main>
           <LoginScreen/>
-          <Footer />
+        </main>
+        <Footer />
       </div>
   );
 }
