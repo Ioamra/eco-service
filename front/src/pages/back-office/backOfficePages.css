@@ -1,0 +1,32 @@
+.admin-dashboard-page,
+.admin-order-page,
+.admin-product-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    position: absolute;
+}
+
+.dashboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.dashboard h1 {
+    font-size: 3rem;
+    color: #333;
+}
+
+.dashboard-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}

@@ -17,7 +17,7 @@ router.get('/', getAll);
 router.get('/:id', getById);
 router.get('/by-categorie/:id', getAllByCategorie);
 
-router.post('/add', verifAdminToken, add);
+router.post('/add', add);
 router.post('/update', update);
 router.post('/add-avis', addAvis);
 router.post('/add-image', addImage);
