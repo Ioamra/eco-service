@@ -19,15 +19,20 @@ function AddProductModal({ isOpen, onClose }) {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/categories');
-                setCategories(response.data);
+                const response = await axios.get('http://localhost:5001/api/categorie/');
+                setCategories(response.data.data);
+                console.log(response)
+                console.log('response.data : ', response.data);
             } catch (error) {
                 console.error('Erreur lors de la récupération des catégories : ', error);
             }
         };
 
-        fetchCategories();
+        fetchCategories().then(r => console.log(r));
     }, []);
+
+    console.log('categories : ', categories);
+
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -56,9 +61,11 @@ function AddProductModal({ isOpen, onClose }) {
         formDataToSubmit.append('image', formData.image);
 
         try {
-            await axios.post('http://localhost:5001/produits/add', formDataToSubmit, {
+            console.log('formDataToSubmit : ', formDataToSubmit);
+            await axios.post('http://localhost:5001/api/produit/add', formDataToSubmit, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    'authorization': sessionStorage.getItem('token')
                 }
             });
 
