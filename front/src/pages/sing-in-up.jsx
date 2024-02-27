@@ -111,6 +111,7 @@ const styles = {
         textAlign: 'center',
         color: '#153C32',
         fontSize: '6rem',
+        padding: '30px',
     },
     formLayout: {
         display: 'flex',

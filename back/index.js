@@ -31,6 +31,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/images/categorie", express.static(path.join(__dirname, "upload/categorie")));
 app.use("/images/produit", express.static(path.join(__dirname, "upload/produit")));
+app.use("/images/tuto", express.static(path.join(__dirname, "upload/tuto")));
 
 app.use('/api/utilisateur', require('./routes/utilisateur.routes'));
 app.use('/api/produit', require('./routes/produit.routes'));

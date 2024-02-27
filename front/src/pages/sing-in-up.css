@@ -9,7 +9,7 @@
   flex-direction: column;
 }
 .formLayout .singSwitch {
-  font-size: 10px;
+  font-size: 12px;
   margin-top: 25px;
   text-decoration: underline;
   font-weight: bold;
@@ -24,6 +24,7 @@
   border-radius: 5px;
   border: solid 2px #ededed;
   margin: 10px 0 25px 0;
+  padding: 12px 6px;
 }
 .formLayout button {
   background: #E99535;
@@ -52,7 +53,7 @@
   aspect-ratio: 1/1;
 }
 
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 980px) {
   .logoLayout {
     display: none !important;
   }
@@ -67,6 +68,4 @@
   form {
     width: 100% !important;
   }
-}
-
-/*# sourceMappingURL=sing-in-up.css.map */
+}/*# sourceMappingURL=sing-in-up.css.map */

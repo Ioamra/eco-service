@@ -2,6 +2,7 @@ const express = require('express');
 const {
     getById,
     getAllByCategorie,
+    getBySearch,
     add,
     update,
     addAvis,
@@ -17,11 +18,12 @@ const router = express.Router();
 router.get('/', getAll);
 router.get('/:id', getById);
 router.get('/by-categorie/:id', getAllByCategorie);
+router.get('/search/:search', getBySearch);
 
-router.post('/add', add);
-router.post('/update', update);
-router.post('/add-avis', addAvis);
-router.post('/add-image' /* single('image') */, addImage);
+router.post('/add', verifAdminToken, add);
+router.post('/update', verifAdminToken, update);
+router.post('/add-avis', verifToken, addAvis);
+router.post('/add-image' /* single('image') */, verifAdminToken, addImage);
 
 router.delete('/remove-image', removeImage);
 
