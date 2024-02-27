@@ -302,9 +302,9 @@ const addImage = async (req, res) => {
     try {
         const { id_produit } = req.body;
 
-        const ext = req.file.originalname.split('.').pop(); // Obtenir l'extension du fichier
+        const ext = req.file.originalname.split('.').pop();
 
-        // Insérer l'ID du produit, le chemin de l'image et l'extension dans la base de données
+
         const query = `INSERT INTO image (id_produit, ext) VALUES (?, ?)`;
         bdd.query(query, [id_produit, ext], (err, data) => {
             if (err) {
