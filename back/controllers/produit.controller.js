@@ -194,6 +194,7 @@ const getBySearch = async (req, res) => {
 
 const add = async (req, res) => {
     try {
+        // ! IMG
         const { nom, description, quantite, prix, images } = req.body;
         const query = ``;
         bdd.query(query, (err, data) => {
