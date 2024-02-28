@@ -1,15 +1,27 @@
 import './App.css';
 import LoginScreen from './pages/sing-in-up';
 import './index.css';
-import ProductPage from './pages/product/productPage';
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Footer from './components/footer/footer'; 
+import Navbar from './components/navbar/navbar';
 function App() {
   return (
+    <Router>
       <div>
-        <ProductPage productId="1"/>
+        <Navbar>
+          <Routes>
+          <Route path="/"/>
+          <Route path="/"/>
+          <Route path="/"/>
+          <Route path="/"/>
+        </Routes>
+        </Navbar>
+        <main>
+          <LoginScreen/>
+        </main>
         <Footer />
       </div>
+    </Router>
   );
 }
 
