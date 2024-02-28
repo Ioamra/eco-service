@@ -73,7 +73,7 @@ function AddProductModal({ isOpen, onClose }) {
             console.log(extension);
             formImageData.append('ext', extension);
 
-            axios.post('http://localhost:5001/api/produit/add-image', formImageData, {
+            axios.post('http://localhost:5000/api/produit/add-image', formImageData, {
                 headers: {
                     'authorization': sessionStorage.getItem('token')
                 }
