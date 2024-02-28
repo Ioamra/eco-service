@@ -300,19 +300,22 @@ const removeImage = async (req, res) => {
 }
 
 const addImage = async (req, res) => {
-    // ! VOIR COMMENT AJOUTER UNE IMG
     try {
         const { id_produit } = req.body;
-        const query = ``;
-        bdd.query(query, (err, data) => {
+
+        const ext = req.file.originalname.split('.').pop();
+
+
+        const query = `INSERT INTO image (id_produit, ext) VALUES (?, ?)`;
+        bdd.query(query, [id_produit, ext], (err, data) => {
             if (err) {
                 throw err;
             }
-            return res.status(200).json({ "status": "success", "data": data[0]});
+            return res.status(200).json({ "status": "success", "message": "Image ajoutée avec succès" });
         });
     } catch (error) {
-        console.log(error);
-        return res.json(error);
+        console.error(error);
+        return res.status(500).json({ "status": "error", "message": "Une erreur interne s'est produite" });
     }
 }
 

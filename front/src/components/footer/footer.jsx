@@ -22,7 +22,7 @@ function Footer() {
                     <img src={instagramLogo} alt="instagram" className="footer-instagram" />
                     <img src={facebookLogo} alt ="facebookLogo" className="footer-facebook" />
                 </section>
-                <section class="footer-text-content">
+                <section className="footer-text-content">
                     <p>© 2024 Tous droits réservés.</p>
                     <p>Mentions Légales.</p>
                 </section>
