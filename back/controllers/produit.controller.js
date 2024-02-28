@@ -152,8 +152,49 @@ const getAll = async (req, res) => {
     }
 }
 
+const getBySearch = async (req, res) => {
+    try {
+        const query = `SELECT 
+            JSON_ARRAYAGG(
+                JSON_OBJECT(
+                    'id_produit', produit.id_produit,
+                    'nom', produit.nom,
+                    'description', produit.description,
+                    'quantite', produit.quantite,
+                    'prix', produit.prix,
+                    'promo', produit.promo,
+                    'date_fin_promo', produit.date_fin_promo,
+                    'url_img', (SELECT CONCAT('images/produit/', image.id_image, '.', image.ext) FROM image WHERE image.id_produit = produit.id_produit LIMIT 1),
+                    'note_moyenne', (SELECT AVG(avis.note) FROM avis WHERE avis.id_produit = produit.id_produit),
+                    'nb_produit_commande', (
+                        SELECT SUM(commande_produit_association.quantite_commander)
+                        FROM commande_produit_association
+                        LEFT JOIN commande_satut_association ON commande_produit_association.id_commande = commande_satut_association.id_commande
+                        LEFT JOIN statut ON commande_satut_association.id_statut = statut.id_statut
+                        WHERE id_produit = produit.id_produit AND statut.nom != ?
+                    )
+                )
+            ) AS produit
+        FROM produit
+        WHERE produit.nom LIKE ?`;
+        bdd.query(query, ['Dans le panier', '%' + req.params.search + '%'], (err, data) => {
+            if (err) {
+                throw err;
+            }
+            data = data.map(item => ({
+                produit: JSON.parse(item.produit)
+            }))
+            return res.status(200).json({ "status": "success", "data": data[0].produit});
+        });
+    } catch (error) {
+        console.log(error);
+        return res.json(error);
+    }
+}
+
 const add = async (req, res) => {
     try {
+        // ! IMG
         const { nom, description, quantite, prix, images } = req.body;
         const query = ``;
         bdd.query(query, (err, data) => {
@@ -259,19 +300,22 @@ const removeImage = async (req, res) => {
 }
 
 const addImage = async (req, res) => {
-    // ! VOIR COMMENT AJOUTER UNE IMG
     try {
         const { id_produit } = req.body;
-        const query = ``;
-        bdd.query(query, (err, data) => {
+
+        const ext = req.file.originalname.split('.').pop();
+
+
+        const query = `INSERT INTO image (id_produit, ext) VALUES (?, ?)`;
+        bdd.query(query, [id_produit, ext], (err, data) => {
             if (err) {
                 throw err;
             }
-            return res.status(200).json({ "status": "success", "data": data[0]});
+            return res.status(200).json({ "status": "success", "message": "Image ajoutée avec succès" });
         });
     } catch (error) {
-        console.log(error);
-        return res.json(error);
+        console.error(error);
+        return res.status(500).json({ "status": "error", "message": "Une erreur interne s'est produite" });
     }
 }
 
@@ -290,4 +334,4 @@ const exemple = async (req, res) => {
     }
 }
 
-module.exports = { getById, getAllByCategorie, getAll, add, update, addAvis, removeImage, addImage };
+module.exports = { getById, getAllByCategorie, getBySearch, getAll, add, update, addAvis, removeImage, addImage };

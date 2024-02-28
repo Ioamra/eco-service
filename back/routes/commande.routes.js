@@ -14,11 +14,11 @@ const router = express.Router();
 router.get('/', verifAdminToken, getAll);
 router.get('/get-panier', verifToken, getPanier)
 
-router.post('/create-panier', verifMyAccToken, createPanier);
-router.post('/update-panier', verifMyAccToken, updatePanier);
-router.post('/commander-panier', verifMyAccToken, commanderPanier);
+router.post('/create-panier', verifToken, createPanier);
+router.post('/update-panier', verifToken, updatePanier);
+router.post('/commander-panier', verifToken, commanderPanier);
 
 
-router.delete('/remove-panier', verifAdminToken, removePanier);
+router.delete('/remove-panier', verifToken, removePanier);
 
 module.exports = router;

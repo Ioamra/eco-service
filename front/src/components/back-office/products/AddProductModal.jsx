@@ -1,17 +1,18 @@
-// AddProductModal.jsx
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import axios from 'axios';
 import './AddProductModal.css';
 
 function AddProductModal({ isOpen, onClose }) {
+    const [image, setImage] = useState(null);
+    const [previewImage, setPreviewImage] = useState(null);
+
     const [formData, setFormData] = useState({
         nom: '',
         description: '',
-        quantite: 0,
-        prix: 0,
+        quantite: '',
+        prix: '',
         id_categorie: '',
-        image: null
     });
 
     const [categories, setCategories] = useState([]);
@@ -19,10 +20,8 @@ function AddProductModal({ isOpen, onClose }) {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://localhost:5001/api/categorie/');
+                const response = await axios.get('http://localhost:5000/api/categorie/');
                 setCategories(response.data.data);
-                console.log(response)
-                console.log('response.data : ', response.data);
             } catch (error) {
                 console.error('Erreur lors de la récupération des catégories : ', error);
             }
@@ -31,11 +30,8 @@ function AddProductModal({ isOpen, onClose }) {
         fetchCategories().then(r => console.log(r));
     }, []);
 
-    console.log('categories : ', categories);
-
-
     const handleChange = (event) => {
-        const { name, value } = event.target;
+        const { name, value, files } = event.target;
         setFormData(prevState => ({
             ...prevState,
             [name]: value
@@ -43,31 +39,53 @@ function AddProductModal({ isOpen, onClose }) {
     };
 
     const handleImageChange = (event) => {
-        setFormData(prevState => ({
-            ...prevState,
-            image: event.target.files[0]
-        }));
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            const imageData = e.target.result;
+            setImage(file);
+            console.log('image : ', file);
+            setPreviewImage(imageData);
+        };
+
+        reader.readAsDataURL(file);
     };
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const formDataToSubmit = new FormData();
-        formDataToSubmit.append('nom', formData.nom);
-        formDataToSubmit.append('description', formData.description);
-        formDataToSubmit.append('quantite', formData.quantite);
-        formDataToSubmit.append('prix', formData.prix);
-        formDataToSubmit.append('id_categorie', formData.id_categorie);
-        formDataToSubmit.append('image', formData.image);
-
         try {
-            console.log('formDataToSubmit : ', formDataToSubmit);
-            await axios.post('http://localhost:5001/api/produit/add', formDataToSubmit, {
+            const createProductResponse = await axios.post('http://localhost:5000/api/produit/add', formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data',
                     'authorization': sessionStorage.getItem('token')
                 }
             });
+            console.log('Produit ajouté avec succès');
+            const productId = createProductResponse.data.data.id_produit;
+            const formImageData = new FormData();
+            formImageData.append('image', image.files[0]);
+            formImageData.append('id_produit', productId);
+            console.log(productId);
+
+            const extension = image.files[0].name.split('.').pop();
+            console.log(extension);
+            formImageData.append('ext', extension);
+
+            axios.post('http://localhost:5001/api/produit/add-image', formImageData, {
+                headers: {
+                    'authorization': sessionStorage.getItem('token')
+                }
+            })
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                });
+
+            console.log('Image ajoutée avec succès');
 
             onClose();
         } catch (error) {
@@ -90,6 +108,7 @@ function AddProductModal({ isOpen, onClose }) {
                     ))}
                 </select>
                 <input type="file" name="image" onChange={handleImageChange} accept="image/*" className="form-input" />
+                {previewImage && <img src={previewImage} alt="Preview" style={{ maxWidth: '100%', marginTop: '10px', marginBottom: '10px' }} />}
                 <button type="submit" className="submit-button">Ajouter</button>
             </form>
         </Modal>
