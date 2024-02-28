@@ -1,0 +1,159 @@
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.Eco-service-logo{
+  width: 60px;
+  height: 60px;
+}
+
+.nav-items {
+  display: flex;
+  align-items: center;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #333; 
+  margin: 0 15px;
+  padding: 5px 10px;
+  font-size: 15px;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  color: #5F9EA0;
+  font-weight: bold;
+}
+
+
+.search-bar {
+  border: none solid #333;
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-right: 10px;
+  border-radius: 1000px;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: end;
+}
+
+.connexion, .panier {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size:14px!important;
+  font-weight: 400!important;
+  padding: auto 25px!important;
+  margin: 10px;
+}
+
+.connexion{
+  background-color:#FFA500;
+  border-radius: 1000px;
+  border: none;
+  padding: 5px 20px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.connexion:hover{
+  background-color:#e69500;
+  transform-origin: center center;
+  transform: rotate(5deg);
+  transition: all 0.3s ease-in-out;
+}
+
+.panier {
+  background-color: white;
+  border-radius: 1000px;
+  padding: 0px 20px;
+  font-size: 40px;
+  border: none;
+  text-align: center;
+}
+
+.panier:hover {
+  background-color: #D3D3D3;
+  transform-origin: center center;
+  transform: rotate(5deg);
+  transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-items {
+    width: 100%;
+    justify-content: space-evenly;
+    margin-top: 10px;
+  }
+
+  .search-bar {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .button-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .button {
+    justify-content: center;
+    padding: 10px;
+    width: 100%; 
+    margin-bottom: 5px;
+  }
+}
+
+.burger-menu {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.menu.show {
+  display: block;
+  animation: slideIn 0.3s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .burger-menu {
+    display: block; 
+  }
+
+  .nav-items, .search-container {
+    display: none; 
+  }
+
+  .menu.show .nav-items, .menu.show .search-container {
+    display: flex; 
+    flex-direction: column;
+  }
+
+  .navbar-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
