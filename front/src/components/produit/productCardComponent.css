@@ -1,5 +1,6 @@
 .product-card {
     background: #ffffff;
+    border: 1px solid #000000;
     border-radius: 22px;
     padding: 20px;
     width: 200px;
@@ -8,4 +9,11 @@
     flex-wrap: wrap;
     flex-direction: column;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-card-image {
+    width: 100%;
+    background: #ededed;
+    border-radius: 22px;
+    margin-bottom: 20px;
 }
