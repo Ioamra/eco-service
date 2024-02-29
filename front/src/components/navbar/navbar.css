@@ -3,11 +3,16 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
+  flex-wrap: wrap;
 }
 
 .Eco-service-logo{
   width: 60px;
   height: 60px;
+}
+
+.search-container {
+  flex-grow: 1;
 }
 
 .nav-items {
@@ -39,6 +44,14 @@
   border-radius: 1000px;
 }
 
+.desktop-search {
+  display: block; 
+}
+
+.mobile-search {
+  display: none;
+}
+
 .icon-container {
   display: flex;
   justify-content: end;
@@ -61,6 +74,7 @@
   padding: 5px 20px;
   font-size: 12px;
   text-align: center;
+  cursor:pointer;
 }
 
 .connexion:hover{
@@ -77,6 +91,7 @@
   font-size: 40px;
   border: none;
   text-align: center;
+  cursor: pointer;
 }
 
 .panier:hover {
@@ -156,4 +171,5 @@
     flex-direction: column;
     align-items: center;
   }
+  
 }

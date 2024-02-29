@@ -25,16 +25,19 @@ const Navbar = () => {
   return (
     <div className="navbar-container">
       <img src={EcoServiceLogo} alt="Eco Service" className="Eco-service-logo" />
+      <div className="search-container desktop-search">
+        <input className="search-bar" type="text" placeholder="Search..."/>
+      </div>
       <button className="burger-menu" onClick={toggleMenu}>☰</button>
-      <div className={`menu ${showMenu ? "show" : ""}`}> 
-        <div className="search-container">
-          <input className="search-bar" type="text" placeholder="Search..."/>
-        </div>
+      <div className={`menu ${showMenu ? "show" : ""}`}>
         <div className="nav-items">
           <NavLink className="nav-item" to="/nos-produits" activeClassName="active">NOS PRODUITS</NavLink>
           <NavLink className="nav-item" to="/notre-demarche" activeClassName="active">NOTRE DEMARCHE</NavLink>
           <NavLink className="nav-item" to="/nos-tutoriels" activeClassName="active">NOS TUTORIELS</NavLink>
         </div>
+      </div>
+      <div className="search-container mobile-search">
+        <input className="search-bar" type="text" placeholder="Search..."/>
       </div>
       <div className="icon-container">
         <button onClick={handleOpenModal} className="icon-button panier">
