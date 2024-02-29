@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import logoEcoService from '../assets/logoEcoService.png';
 import './sing-in-up.css';
-import { connexion, inscription } from '../services/sign';
+import { connexion, inscription } from '../services/utilisateur';
 
 const LoginScreen = () => {
     const [isLoginFormVisible, setLoginFormVisible] = useState(true);
