@@ -45,7 +45,7 @@ function ProductPage({ productId }) {
     return (
         <div className="product-page">
             <div className="product-first-line">
-                <img className="product-image" src={`http://localhost:5000/${imageUrl}`} alt={product.nom}/>
+                <img className="product-image" src={`http://localhost:5001/${imageUrl}`} alt={product.nom}/>
                 <div className="product-details">
                     <h2 className="product-name">{product.nom}</h2>
                     <p className="product-category">{product.categorie}</p>
@@ -59,7 +59,7 @@ function ProductPage({ productId }) {
             <div className="related-products">
                 {Array.isArray(relatedProducts) && relatedProducts.map(relatedProduct => (
                     <div key={relatedProduct.id} className="related-product">
-                        <img className="related-product-image" src={`http://localhost:5000/${relatedProduct.imagePath}`}
+                        <img className="related-product-image" src={`http://localhost:5001/${relatedProduct.imagePath}`}
                              alt={relatedProduct.nom}/>
                         <p className="related-product-name">{relatedProduct.nom}</p>
                         <p className="related-product-price">{relatedProduct.prix}</p>
