@@ -1,0 +1,75 @@
+.homepage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    width: 100%;
+}
+
+
+
+.moment-articles {
+    background-color: #ffffff;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.moment-articles-title {
+    margin-left: 5%;
+    font-size: 25px;
+    color: orange;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.moment-articles-cards {
+    display: flex;
+    justify-content: center;
+    gap: 10%;
+}
+
+.hero-section {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 75%;
+}
+
+@media (max-width: 980px) {
+    .hero-section {
+        flex-direction: column;
+    }
+}
+
+.hero-section-button {
+    background-color: #FFC225;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 12px;
+    color: #000000;
+    font-size: 16px;
+    margin: 20px 0;
+    width: 200px;
+}
+
+.hero-section-button:hover {
+    background-color: #ffedc7;
+}
+
+.hero-section-title {
+    font-size: 50px;
+    color: #000000;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.hero-section-subtitle {
+    font-size: 25px;
+    color: #000000;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
