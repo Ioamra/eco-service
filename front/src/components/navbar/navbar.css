@@ -1,3 +1,25 @@
+.d-none {
+  display: none;
+}
+
+.text-deco-none {
+  text-decoration: none;
+}
+
+.search-btn {
+  position: absolute;
+  margin-left: -50px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.search-btn svg {
+  margin-top: 7px;
+  height: 26px;
+  width: 26px;
+}
+
 .navbar-container {
   display: flex;
   justify-content: space-between;
@@ -9,6 +31,7 @@
 .Eco-service-logo{
   width: 60px;
   height: 60px;
+
 }
 
 .nav-items {
@@ -30,7 +53,6 @@
   color: #5F9EA0;
   font-weight: bold;
 }
-
 
 .search-bar {
   border: none solid #333;
@@ -59,7 +81,6 @@
   align-items: center;
   font-size:14px!important;
   font-weight: 400!important;
-  padding: auto 25px!important;
   margin: 10px;
 }
 
@@ -67,7 +88,7 @@
   background-color:#FFA500;
   border-radius: 1000px;
   border: none;
-  padding: 5px 20px;
+  padding: 5px 10px;
   font-size: 12px;
   text-align: center;
   cursor:pointer;
@@ -83,7 +104,7 @@
 .panier {
   background-color: white;
   border-radius: 1000px;
-  padding: 0px 20px;
+  padding: 0px 10px;
   font-size: 40px;
   border: none;
   text-align: center;
@@ -97,10 +118,46 @@
   transition: all 0.3s ease-in-out;
 }
 
+.logo-user {
+  height: 36px;
+  width: 36px;
+  margin: 6px;
+}
+
+.burger-menu {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.menu.show {
+  display: block;
+  animation: slideIn 0.3s ease-in-out;
+}
+
+.icon-container-mobile {
+  display: none;
+}
+
+.icon-container-mobile > * {
+  width: fit-content;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 980px) {
   .navbar-container {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
 
   .nav-items {
@@ -119,37 +176,17 @@
     width: 100%;
   }
 
+  .icon-container {
+    display: none;
+  }
+
   .button {
     justify-content: center;
     padding: 10px;
     width: 100%; 
     margin-bottom: 5px;
   }
-}
-
-.burger-menu {
-  display: none;
-  font-size: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.menu.show {
-  display: block;
-  animation: slideIn 0.3s ease-in-out;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(-100%);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 980px) {
+  
   .burger-menu {
     display: block; 
   }
@@ -158,14 +195,24 @@
     display: none; 
   }
 
-  .menu.show .nav-items, .menu.show .search-container {
+  .menu.show .nav-items, .menu.show .search-container, .icon-container-mobile.show {
     display: flex; 
     flex-direction: column;
-  }
-
-  .navbar-container {
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
   }
+
+  .search-btn-mobile {
+    position: absolute;
+    margin-left: 190px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
   
+  .search-btn-mobile svg {
+    margin-top: 18px;
+    height: 26px;
+    width: 26px;
+  }
 }
