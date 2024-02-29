@@ -25,6 +25,6 @@ router.post('/update', verifAdminToken, update);
 router.post('/add-avis', verifToken, addAvis);
 router.post('/add-image' /* single('image') */, verifAdminToken, addImage);
 
-router.delete('/remove-image', removeImage);
+router.delete('/remove-image', verifAdminToken, removeImage);
 
 module.exports = router;

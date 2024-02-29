@@ -7,7 +7,7 @@ function ProductListComponent() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:5001/api/produit');
+                const response = await axios.get('http://localhost:5000/api/produit');
                 setProducts(response.data);
             } catch (error) {
                 console.error('Une erreur s\'est produite lors de la récupération des produits :', error);

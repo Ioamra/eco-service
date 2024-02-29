@@ -10,7 +10,7 @@ function ProductPage({ productId }) {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await axios.get(`http://localhost:5001/api/produit/${productId}`);
+                const response = await axios.get(`http://localhost:5000/api/produit/${productId}`);
                 setProduct(response.data.data.produit);
                 setImageUrl(response.data.data.images[0].url)
             } catch (error) {
@@ -20,7 +20,7 @@ function ProductPage({ productId }) {
 
         const fetchRelatedProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:5001/api/produit/');
+                const response = await axios.get('http://localhost:5000/api/produit/');
                 setRelatedProducts(response.data);
             } catch (error) {
                 console.error('Erreur lors de la récupération des produits associés : ', error);
@@ -45,7 +45,7 @@ function ProductPage({ productId }) {
     return (
         <div className="product-page">
             <div className="product-first-line">
-                <img className="product-image" src={`http://localhost:5001/${imageUrl}`} alt={product.nom}/>
+                <img className="product-image" src={`http://localhost:5000/${imageUrl}`} alt={product.nom}/>
                 <div className="product-details">
                     <h2 className="product-name">{product.nom}</h2>
                     <p className="product-category">{product.categorie}</p>
@@ -59,7 +59,7 @@ function ProductPage({ productId }) {
             <div className="related-products">
                 {Array.isArray(relatedProducts) && relatedProducts.map(relatedProduct => (
                     <div key={relatedProduct.id} className="related-product">
-                        <img className="related-product-image" src={`http://localhost:5001/${relatedProduct.imagePath}`}
+                        <img className="related-product-image" src={`http://localhost:5000/${relatedProduct.imagePath}`}
                              alt={relatedProduct.nom}/>
                         <p className="related-product-name">{relatedProduct.nom}</p>
                         <p className="related-product-price">{relatedProduct.prix}</p>

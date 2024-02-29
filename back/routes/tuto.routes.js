@@ -14,8 +14,8 @@ router.get('/', getAll);
 router.get('/:id', getById);
 
 router.post('/add-avis', verifToken, addAvis);
-router.post('add', verifAdminToken, add);
+router.post('/add', verifAdminToken, add);
 
-router.delete('remove', verifAdminToken, remove);
+router.delete('/remove', verifAdminToken, remove);
 
 module.exports = router;
