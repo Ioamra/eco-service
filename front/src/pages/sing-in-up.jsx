@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import logoEcoService from '../assets/logoEcoService.png';
 import './sing-in-up.css';
-import { connexion } from '../services/sign';
+import { connexion, inscription } from '../services/sign';
 
 const LoginScreen = () => {
     const [isLoginFormVisible, setLoginFormVisible] = useState(true);
@@ -16,13 +16,31 @@ const LoginScreen = () => {
         if (response == 'ok') {
             // ! GERER LA REDIRECTION QUAND LA CONNEXION A REUSSI
         } else if (response == 'error' ) {
-            // ! GERER LE CAS OU LE MAIL OU MOT DE PASSE N'EST PAS BON
+            alert("Une erreur s'est produite, veuillez réessayer.")
         }
     };
 
-    const handleRegister = (userData) => {
-        // Logique d'inscription ici
-        console.log('Utilisateur inscrit:', userData);
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        if (e.target.elements.password.value == e.target.elements.password2.value) {
+            const response = await inscription(
+                e.target.elements.mail.value,
+                e.target.elements.prenom.value,
+                e.target.elements.nom.value,
+                e.target.elements.password.value,
+                e.target.elements.pays.value,
+                e.target.elements.ville.value,
+                e.target.elements.code_postal.value,
+                e.target.elements.complement_adresse.value
+            );
+            if (response == 'ok') {
+                // ! GERER LA REDIRECTION QUAND LA CONNEXION A REUSSI
+            } else if (response == 'error' ) {
+                alert("Une erreur s'est produite, veuillez réessayer.")
+            }
+        } else {
+            alert('Les mots de passe ne corresponde pas.')
+        }
     };
 
     return (
@@ -40,11 +58,11 @@ const LoginScreen = () => {
                                     {/* Formulaire de connexion avec des balises label */}
                                     <label>
                                         Email<br/>
-                                        <input type="text" name="email"/>
+                                        <input type="text" name="email" required/>
                                     </label>
                                     <label>
                                         Mot de passe<br/>
-                                        <input type="password" name="password"/>
+                                        <input type="password" name="password" required/>
                                     </label>
                                     <button type="submit">Se connecter</button>
                                 </form>
@@ -53,23 +71,39 @@ const LoginScreen = () => {
                                     {/* Formulaire d'inscription avec des balises label */}
                                     <label>
                                         Nom<br/>
-                                        <input type="text"/>
+                                        <input type="text" name="nom" required/>
                                     </label>
                                     <label>
                                         Pr&eacute;nom<br/>
-                                        <input type="text"/>
+                                        <input type="text" name="prenom" required/>
                                     </label>
                                     <label>
                                         Email<br/>
-                                        <input type="text"/>
+                                        <input type="text" name="mail" required/>
                                     </label>
                                     <label>
                                         Mot de passe<br/>
-                                        <input type="password"/>
+                                        <input type="password" name="password" required/>
                                     </label>
                                     <label>
                                         Confirmer le mot de passe<br/>
-                                        <input type="password"/>
+                                        <input type="password" name="password2" required/>
+                                    </label>
+                                    <label>
+                                        Pays<br/>
+                                        <input type="text" name="pays" required/>
+                                    </label>
+                                    <label>
+                                        Ville<br/>
+                                        <input type="text" name="ville" required/>
+                                    </label>
+                                    <label>
+                                        Code postal<br/>
+                                        <input type="text" name="code_postal" required/>
+                                    </label>
+                                    <label>
+                                        Complement d'adresse<br/>
+                                        <input type="text" name="complement_adresse" required/>
                                     </label>
                                     <button type="submit">S'inscrire</button>
                                 </form>
@@ -78,7 +112,6 @@ const LoginScreen = () => {
                                 {isLoginFormVisible ? "Je ne suis pas encore inscrit" : "J'ai déjà un compte"}
                                 </a>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -98,7 +131,7 @@ const styles = {
         borderRadius: '10px',
         boxShadow: 'rgba(17, 12, 46, 0.15) 0px 48px 100px 0px',
         color:'#000',
-        fontSize: '3rem',
+        fontSize: '2em',
         marginBottom: '50px',
 
     },
