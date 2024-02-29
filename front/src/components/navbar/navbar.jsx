@@ -27,16 +27,18 @@ const Navbar = () => {
 
   return (
     <div className="navbar-container">
-      <img src={EcoServiceLogo} alt="Eco Service" className="Eco-service-logo" />
-      <div className="search-container desktop-search">
+      <NavLink to="/">
+        <img src={EcoServiceLogo} alt="Eco Service" className="Eco-service-logo" />
+      </NavLink>
+          <div className="search-container desktop-search">
         <input className="search-bar" type="text" placeholder="Search..."/>
       </div>
       <button className="burger-menu" onClick={toggleMenu}>☰</button>
       <div className={`menu ${showMenu ? "show" : ""}`}>
         <div className="nav-items">
-          <NavLink className="nav-item" to="/nos-produits" activeClassName="active">NOS PRODUITS</NavLink>
-          <NavLink className="nav-item" to="/notre-demarche" activeClassName="active">NOTRE DEMARCHE</NavLink>
-          <NavLink className="nav-item" to="/nos-tutoriels" activeClassName="active">NOS TUTORIELS</NavLink>
+          <NavLink className="nav-item" to="/nos-produits">NOS PRODUITS</NavLink>
+          <NavLink className="nav-item" to="/notre-demarche">NOTRE DEMARCHE</NavLink>
+          <NavLink className="nav-item" to="/nos-tutoriels">NOS TUTORIELS</NavLink>
         </div>
         <div className="search-container mobile-search">
           <input className="search-bar" type="text" placeholder="Search..."/>
@@ -48,10 +50,12 @@ const Navbar = () => {
           <span>PANIER</span>
         </button>
         <Modal show={showModal} handleClose={handleCloseModal} />
-        <button className="icon-button connexion">
-          <img src={LogoLogin} alt="Connexion" className="icon-logo" />
-          <span>CONNEXION</span>
-        </button>
+        <NavLink to='/login'>
+            <button className="icon-button connexion">
+              <img src={LogoLogin} alt="Connexion" className="icon-logo" />
+              <span>CONNEXION</span>
+            </button>
+        </NavLink>
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ function ProductPage({ productId }) {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/produit/${productId}`);
+                const response = await axios.get(`http://localhost:5001/api/produit/${productId}`);
                 setProduct(response.data.data.produit);
                 setImageUrl(response.data.data.images[0].url)
             } catch (error) {
@@ -20,7 +20,7 @@ function ProductPage({ productId }) {
 
         const fetchRelatedProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/produit/');
+                const response = await axios.get('http://localhost:5001/api/produit/');
                 setRelatedProducts(response.data);
             } catch (error) {
                 console.error('Erreur lors de la récupération des produits associés : ', error);

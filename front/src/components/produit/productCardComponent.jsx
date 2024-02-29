@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './productCardComponent.css';
 import axios from "axios";
+import {NavLink} from "react-router-dom";
 
 function ProductCardComponent({ productId }) {
     const [product, setProduct] = useState(null)
@@ -46,11 +47,13 @@ function ProductCardComponent({ productId }) {
     };
 
     return (
-        <div className="product-card">
-            {imageUrl && <img src={`http://localhost:5001/${imageUrl}`} alt={product.nom} className="product-card-image" />}
-            <h3 className="product-name">{product.nom}</h3>
-            {renderPrice()}
-        </div>
+        <NavLink to='/product/${product.id}'>
+            <div className="product-card">
+                {imageUrl && <img src={`http://localhost:5001/${imageUrl}`} alt={product.nom} className="product-card-image" />}
+                <h3 className="product-name">{product.nom}</h3>
+                {renderPrice()}
+            </div>
+        </NavLink>
     );
 }
 
