@@ -11,20 +11,21 @@ function App() {
   return (
     <Router>
       <div>
-        <Navbar>
-        </Navbar>
-            <Routes initial="/">
-                <Route path="/" element={<HomePage />} />
-                <Route path="/nos-produits" element={<OurProductPage />} />
-                <Route
-                    path="/product/:productId"
-                    element={({ params }) => (
-                        <ProductPage productId={params.productId} />
-                    )}
-                />
-                <Route path="/login" element={<LoginScreen />} />
-            </Routes>
-          <Footer />
+        <Navbar />
+        <main>
+          <Routes initial="/">
+              <Route path="/nos-produits" element={<OurProductPage />} />
+              <Route path="/" element={<HomePage />} />
+              <Route
+                  path="/product/:productId"
+                  element={({ params }) => (
+                      <ProductPage productId={params.productId} />
+                  )}
+              />
+              <Route path="/login" element={<LoginScreen />} />
+          </Routes>
+        </main>
+        <Footer />
       </div>
     </Router>
   );

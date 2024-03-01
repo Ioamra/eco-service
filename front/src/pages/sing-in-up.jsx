@@ -14,7 +14,7 @@ const LoginScreen = () => {
         e.preventDefault();
         const response =  await connexion(e.target.elements.email.value, e.target.elements.password.value);
         if (response == 'ok') {
-            // ! GERER LA REDIRECTION QUAND LA CONNEXION A REUSSI
+            window.location.href = "http://localhost:3000/";
         } else if (response == 'error' ) {
             alert("Une erreur s'est produite, veuillez réessayer.")
         }
@@ -34,7 +34,7 @@ const LoginScreen = () => {
                 e.target.elements.complement_adresse.value
             );
             if (response == 'ok') {
-                // ! GERER LA REDIRECTION QUAND LA CONNEXION A REUSSI
+                window.location.href = "http://localhost:3000/";
             } else if (response == 'error' ) {
                 alert("Une erreur s'est produite, veuillez réessayer.")
             }

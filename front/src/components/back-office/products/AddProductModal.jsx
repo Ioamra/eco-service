@@ -20,7 +20,7 @@ function AddProductModal({ isOpen, onClose }) {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/categorie/');
+                const response = await axios.get('http://localhost:5001/api/categorie/');
                 setCategories(response.data.data);
             } catch (error) {
                 console.error('Erreur lors de la récupération des catégories : ', error);
@@ -57,7 +57,7 @@ function AddProductModal({ isOpen, onClose }) {
         event.preventDefault();
 
         try {
-            const createProductResponse = await axios.post('http://localhost:5000/api/produit/add', formData, {
+            const createProductResponse = await axios.post('http://localhost:5001/api/produit/add', formData, {
                 headers: {
                     'authorization': sessionStorage.getItem('token')
                 }
@@ -73,7 +73,7 @@ function AddProductModal({ isOpen, onClose }) {
             console.log(extension);
             formImageData.append('ext', extension);
 
-            axios.post('http://localhost:5000/api/produit/add-image', formImageData, {
+            axios.post('http://localhost:5001/api/produit/add-image', formImageData, {
                 headers: {
                     'authorization': sessionStorage.getItem('token')
                 }

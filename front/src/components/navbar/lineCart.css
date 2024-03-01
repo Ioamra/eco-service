@@ -1,0 +1,33 @@
+.line-cart-container {
+    font-size: 16px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 2px;
+    display: flex;
+    flex-direction: row;
+}
+
+.cart-img {
+    width: 15%;
+    padding: 8px;
+}
+
+.cart-nom {
+    width: 45%;
+    border-right: 1px solid black;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.cart-prix, .cart-quantite, .cart-total-line {
+    padding: 8px;
+    width: calc(40% / 3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart-prix, .cart-quantite {
+    border-right: 1px solid black;
+}

@@ -89,8 +89,8 @@ const getAllByCategorie = async (req, res) => {
                     'nb_produit_commande', (
                         SELECT SUM(commande_produit_association.quantite_commander)
                         FROM commande_produit_association
-                        LEFT JOIN commande_satut_association ON commande_produit_association.id_commande = commande_satut_association.id_commande
-                        LEFT JOIN statut ON commande_satut_association.id_statut = statut.id_statut
+                        LEFT JOIN commande_statut_association ON commande_produit_association.id_commande = commande_statut_association.id_commande
+                        LEFT JOIN statut ON commande_statut_association.id_statut = statut.id_statut
                         WHERE id_produit = produit.id_produit AND statut.nom != ?
                     )
                 )
@@ -130,8 +130,8 @@ const getAll = async (req, res) => {
                     'nb_produit_commande', (
                         SELECT SUM(commande_produit_association.quantite_commander)
                         FROM commande_produit_association
-                        LEFT JOIN commande_satut_association ON commande_produit_association.id_commande = commande_satut_association.id_commande
-                        LEFT JOIN statut ON commande_satut_association.id_statut = statut.id_statut
+                        LEFT JOIN commande_statut_association ON commande_produit_association.id_commande = commande_statut_association.id_commande
+                        LEFT JOIN statut ON commande_statut_association.id_statut = statut.id_statut
                         WHERE id_produit = produit.id_produit AND statut.nom != ?
                     )
                 )
@@ -169,8 +169,8 @@ const getBySearch = async (req, res) => {
                     'nb_produit_commande', (
                         SELECT SUM(commande_produit_association.quantite_commander)
                         FROM commande_produit_association
-                        LEFT JOIN commande_satut_association ON commande_produit_association.id_commande = commande_satut_association.id_commande
-                        LEFT JOIN statut ON commande_satut_association.id_statut = statut.id_statut
+                        LEFT JOIN commande_statut_association ON commande_produit_association.id_commande = commande_statut_association.id_commande
+                        LEFT JOIN statut ON commande_statut_association.id_statut = statut.id_statut
                         WHERE id_produit = produit.id_produit AND statut.nom != ?
                     )
                 )
