@@ -6,6 +6,7 @@ import Navbar from './components/navbar/navbar';
 import Footer from './components/footer/footer';
 import ProductPage from "./pages/product/productPage";
 import HomePage from "./pages/homePage";
+import OurProductPage from "./pages/ourProductPage";
 function App() {
   return (
     <Router>
@@ -14,6 +15,7 @@ function App() {
         </Navbar>
             <Routes initial="/">
                 <Route path="/" element={<HomePage />} />
+                <Route path="/nos-produits" element={<OurProductPage />} />
                 <Route
                     path="/product/:productId"
                     element={({ params }) => (

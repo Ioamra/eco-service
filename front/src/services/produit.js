@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiService  = axios.create({
-    baseURL: "http://localhost:5000/api/produit",
+    baseURL: "http://localhost:5001/api/produit",
     headers: {
         'Content-Type': 'application/json',
         'Authorization': sessionStorage.getItem('token')
@@ -9,7 +9,7 @@ const apiService  = axios.create({
 });
 
 const apiServiceWithoutToken  = axios.create({
-    baseURL: "http://localhost:5000/api/produit",
+    baseURL: "http://localhost:5001/api/produit",
     headers: {
         'Content-Type': 'application/json'
     }
@@ -92,12 +92,3 @@ export const addImage = async () => {
     }
 }
 
-export const removeImage = async (id_image) => {
-    try {
-        return await apiService.delete('/remove-image', {
-            id_image: id
-        });
-    } catch (error) {
-        return 'error';
-    }
-}

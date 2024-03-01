@@ -15,7 +15,6 @@ function ProductCardComponent({ productId }) {
                 const response = await axios.get(`http://localhost:5001/api/produit/${productId}`);
                 setProduct(response.data.data.produit);
                 setImageUrl(response.data.data.images[0].url)
-                console.log(response.data.data);
             } catch (error) {
                 console.error('Erreur lors de la récupération du produit : ', error);
             }

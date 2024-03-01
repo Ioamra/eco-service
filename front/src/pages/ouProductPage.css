@@ -1,0 +1,11 @@
+.our-products-page {
+    width: 80%;
+    margin: 100px auto auto;
+
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Crée des colonnes de 200px minimum qui s'adaptent automatiquement */
+    gap: 20px; /* Espacement entre les éléments */
+}
