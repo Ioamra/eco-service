@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './navbar.css';
 import { NavLink } from "react-router-dom";
 import EcoServiceLogo from './logoEcoService.png';
@@ -6,17 +6,37 @@ import LogoPanier from './logopanier.png';
 import LogoLogin from './logologin.png';
 import LogoUser from './logoUser.png';
 import Modal from './modal.jsx';
+import axios from "axios";
 import { getPanier } from '../../services/commande.js';
 
 const Navbar = () => {
   const [showModal, setShowModal] = useState(false);
   const [showMenu, setShowMenu] = useState(false); 
 
+  const [panier, setPanier] = useState(null);
+  const [nbProduitPanier, setNbProduitPanier] = useState(0);
+
+  useEffect(() => {
+      const fetchPanier = async () => {
+        try {
+          const response = await getPanier();
+          setPanier(response.data.data);
+          let nbProduitPanierTmp = 0;
+          response.data.data.produits.forEach(produit => {
+            nbProduitPanierTmp += produit.quantite_commande;
+          });
+          setNbProduitPanier(nbProduitPanierTmp);
+        } catch (error) {
+          console.error('Erreur lors de la récupération du panier : ', error);
+        }
+      };
+
+      fetchPanier();
+  }, []);
+
   var isLog = false;
   if (sessionStorage.getItem('token')) {
     isLog = true;
-    const panier = getPanier();
-    console.log(panier)
   }
 
   const handleOpenModal = () => {
@@ -64,6 +84,7 @@ const Navbar = () => {
           <button onClick={handleOpenModal} className="panier">
             <img src={LogoPanier} alt="Panier"/>
             <span>PANIER</span>
+            <span className={nbProduitPanier == 0 ? 'd-none' : 'nb-item-panier'}>{nbProduitPanier}</span>
           </button>
           <NavLink className='text-deco-none' to='/profil'>
             <button className='panier'>
@@ -95,14 +116,15 @@ const Navbar = () => {
         <button onClick={handleOpenModal} className="panier">
           <img src={LogoPanier} alt="Panier"/>
           <span>PANIER</span>
+          <span className={nbProduitPanier == 0 ? 'd-none' : 'nb-item-panier'}>{nbProduitPanier}</span>
         </button>
-        <NavLink className='text-deco-none' to='/profil'>
+        <NavLink className={!isLog ? 'd-none' : 'text-deco-none'} to='/profil'>
           <button className='panier'>
             <img src={LogoUser} className='logo-user' alt="Connexion"/>
             <span>PROFIL</span>
           </button>
         </NavLink>
-        <NavLink className={isLog ? 'd-none text-deco-none' : 'text-deco-none'} to='/login'>
+        <NavLink className={isLog ? 'd-none' : 'text-deco-none'} to='/login'>
             <button className="connexion">
               <img src={LogoLogin} alt="Connexion"/>
               <span>CONNEXION</span>
@@ -115,7 +137,7 @@ const Navbar = () => {
         </button>
         </div>
       </div>
-      <Modal show={showModal} handleClose={handleCloseModal} />
+      <Modal show={showModal} handleClose={handleCloseModal}/>
     </div>
   );
 };

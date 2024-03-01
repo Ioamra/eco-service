@@ -145,6 +145,17 @@
   width: fit-content;
 }
 
+.nb-item-panier {
+  background-color: #ffa56b;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+}
+
 @keyframes slideIn {
   from {
     transform: translateY(-100%);

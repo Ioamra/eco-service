@@ -75,7 +75,8 @@ const getPanier = async (req, res) => {
                                 'quantite_commande', commande_produit_association.quantite_commander,
                                 'promo', produit.promo,
                                 'date_fin_promo', produit.date_fin_promo,
-                                'id_categorie', produit.id_categorie
+                                'id_categorie', produit.id_categorie,
+                                'url_img', (SELECT CONCAT('images/produit/', image.id_image, '.', image.ext) FROM image WHERE image.id_produit = produit.id_produit LIMIT 1)
                             )
                         )    
                     )
