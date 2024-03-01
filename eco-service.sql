@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 28 fév. 2024 à 16:59
+-- Généré le : ven. 01 mars 2024 à 09:42
 -- Version du serveur : 8.2.0
 -- Version de PHP : 8.2.13
 
@@ -63,14 +63,16 @@ CREATE TABLE IF NOT EXISTS `categorie` (
   `nom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `ext_image` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id_categorie`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `categorie`
 --
 
 INSERT INTO `categorie` (`id_categorie`, `nom`, `ext_image`) VALUES
-(1, 'savon', 'jpg');
+(1, 'savon', 'jpg'),
+(4, 'Céréale', 'jpg'),
+(5, 'Bougies', 'jpg');
 
 -- --------------------------------------------------------
 
@@ -137,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `commande_statut_association` (
 --
 
 INSERT INTO `commande_statut_association` (`id_commande`, `id_statut`, `date_statut`) VALUES
-(8, 2, '2024-02-28 17:58:16');
+(8, 1, '2024-02-28 17:58:16');
 
 -- --------------------------------------------------------
 
@@ -152,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `image` (
   `id_produit` int DEFAULT NULL,
   PRIMARY KEY (`id_image`),
   KEY `id_produit` (`id_produit`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `image`
@@ -161,7 +163,14 @@ CREATE TABLE IF NOT EXISTS `image` (
 INSERT INTO `image` (`id_image`, `ext`, `id_produit`) VALUES
 (1, 'png', 1),
 (2, 'png', 1),
-(3, 'jpg', 2);
+(3, 'png', 2),
+(4, 'jpg', 3),
+(5, 'jpg', 4),
+(6, 'jpg', 5),
+(7, 'jpg', 6),
+(8, 'jpg', 7),
+(9, 'png', 8),
+(10, 'png', 9);
 
 -- --------------------------------------------------------
 
@@ -181,7 +190,7 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `id_categorie` int NOT NULL,
   PRIMARY KEY (`id_produit`),
   KEY `id_categorie` (`id_categorie`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `produit`
@@ -189,7 +198,14 @@ CREATE TABLE IF NOT EXISTS `produit` (
 
 INSERT INTO `produit` (`id_produit`, `nom`, `description`, `quantite`, `prix`, `promo`, `date_fin_promo`, `id_categorie`) VALUES
 (1, 'Savon de Marseille (300g)', 'Authentique cube de savon Savon de Marseille à l\'huile végétale.', 50, 6, 20, '2024-02-20 00:00:00', 1),
-(2, 'Copeaux savon de Marseille nature blanc 1kg', 'Copeaux de savon de Marseille nature blanc Le Sérail .Sans huile de palme\r\nHuiles végétales, sans parfum, sans colorant, sans conservateur ni fixateur.', 20, 11, NULL, NULL, 1);
+(2, 'Copeaux savon de Marseille nature blanc 1kg', 'Copeaux de savon de Marseille nature blanc Le Sérail .Sans huile de palme\r\nHuiles végétales, sans parfum, sans colorant, sans conservateur ni fixateur.', 20, 11, NULL, NULL, 1),
+(3, 'Flocons D\'avoine Sans Gluten 500g Bio', 'L’avoine est souvent considérée à tort comme une céréale contenant du gluten car elle est souvent contaminée en France par d’autres céréales lors de sa production. L’avoine contient une protéine proche du gluten, l’avenine qui est tolérée par la majorité des malades coeliaques (sous avis médical).\r\n\r\nGrillon d’Or a sélectionné des producteurs capables de garantir de l’avoine sans gluten afin de proposer une gamme toujours plus variée à ses consommateurs. Les filières « avoine » choisies ont développé des procédés très rigoureux et contraignants afin de garantir une avoine sans gluten.\r\n\r\nCertifié Agriculture Biologique.', 27, 4, NULL, NULL, 4),
+(4, 'Corn Flakes Nature 500g Bio', 'Pétales de maïs nature.\r\n\r\nNaturalia est partenaire de Cereco, situé à Domagné en Bretagne et spécialisé dans la fabrication de produits bio à base de céréales.\r\n\r\nDepuis sa création en 1973, NATURALIA entretient des relations durables avec les producteurs pionniers de la BIO.\r\n\r\nCes partenariats garantissent la qualité de nos produits.', 12, 5, NULL, NULL, 4),
+(5, 'Muesli Chocolat Noir Sans Gluten 450g Bio', 'De généreuses pépites de céréales accompagnées de morceaux de chocolat noir pour un moment intensément croustillant et tonifiant.\r\n\r\nSans gluten. Riche en fibre. Aux céréales complètes.\r\n\r\nCe produit est issu de l\'agriculture biologique.', 37, 7, NULL, NULL, 4),
+(6, 'Muesli Croustillant Caramel Chocolat Amandes 450g ', 'Découvrez ces gourmandes céréales complètes croustillantes au chocolat, amandes et caramel beurre salé. Idéal pour le petit-déjeuner pour démarrer la journée. \r\n\r\nCe produit est issu de l\'agriculture biologique.', 12, 7, NULL, NULL, 4),
+(7, '14 Bougies de ménage dîner', 'Combustion propre, Anti-goutte, Sans fumée, Inodore, Non toxique', 7, 19, NULL, NULL, 5),
+(8, 'Lot de 2 - Bougie striée parfumée blanche H10, 340', 'Parfum : Voile de Coton\r\nNotes olfactives : florale - musquée - poudrée - boisée\r\nUne brise douce et poudrée, danse avec les pétales jasminées et rosées, s’enlaçant tendrement dans un voile musqué et ambré.\r\n\r\nDangereux. Respecter les précautions d\'emploi.\r\nNocif pour les organismes aquatiques, entraîne des effets néfastes à long terme.\r\nContient  : OTNE. Peut produire une réaction allergique.', 24, 12, NULL, NULL, 5),
+(9, 'Lot de 2 - Bougie striée parfumée blanche H15, 500', 'Parfum : Voile de Coton\r\nNotes olfactives : florale - musquée - poudrée - boisée\r\nUne brise douce et poudrée, danse avec les pétales jasminées et rosées, s’enlaçant tendrement dans un voile musqué et ambré.\r\n\r\nDangereux. Respecter les précautions d\'emploi.\r\nNocif pour les organismes aquatiques, entraîne des effets néfastes à long terme.\r\nContient  : OTNE. Peut produire une réaction allergique.', 16, 18, NULL, NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -284,7 +300,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `date_creation` datetime NOT NULL,
   `etat` smallint NOT NULL,
   PRIMARY KEY (`id_utilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `utilisateur`
@@ -297,7 +313,8 @@ INSERT INTO `utilisateur` (`id_utilisateur`, `mail`, `prenom`, `nom`, `mot_de_pa
 (4, 'test@gmail.com', 'Jean', 'Durand', 'f2d81a260dea8a100dd517984e53c56a7523d96942a834b9cdc249bd4e8c7aa9', 'France', 'Marseille', '13000', '4 Avenue de la république', 0, '2024-01-31 09:11:59', 1),
 (5, 'test3@gmail.com', 'Jean', 'Durand', 'f2d81a260dea8a100dd517984e53c56a7523d96942a834b9cdc249bd4e8c7aa9', 'France', 'Marseille', '13000', '4 Avenue de la république', 0, '2024-01-31 11:16:59', 1),
 (6, 'test2@gmail.com', 'Jean', 'Durand', 'f2d81a260dea8a100dd517984e53c56a7523d96942a834b9cdc249bd4e8c7aa9', 'France', 'Marseille', '13000', '4 Avenue de la république', 0, '2024-01-31 11:39:02', 1),
-(7, 'testtest@gmail.com', 'testtest', 'testtest', 'f2d81a260dea8a100dd517984e53c56a7523d96942a834b9cdc249bd4e8c7aa9', 'France', 'Aubagne', '13400', '4 Rue de la République', 0, '2024-02-28 12:37:09', 1);
+(7, 'testtest@gmail.com', 'testtest', 'testtest', 'f2d81a260dea8a100dd517984e53c56a7523d96942a834b9cdc249bd4e8c7aa9', 'France', 'Aubagne', '13400', '4 Rue de la République', 0, '2024-02-28 12:37:09', 1),
+(8, 'jean.dupond@gmail.com', 'Jean', 'Dupond', 'f2d81a260dea8a100dd517984e53c56a7523d96942a834b9cdc249bd4e8c7aa9', 'France', 'Aubange', '13400', '4 Rue de la république', 0, '2024-02-29 09:22:53', 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
